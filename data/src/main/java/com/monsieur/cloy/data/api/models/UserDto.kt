@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 import java.time.LocalDate
 import java.time.LocalDateTime
 
-class UserResponse(
+class UserDto(
     @SerializedName("id")
     @Expose
     var id: String,

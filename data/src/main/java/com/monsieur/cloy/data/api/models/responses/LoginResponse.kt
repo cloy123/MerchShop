@@ -1,7 +1,8 @@
-package com.monsieur.cloy.data.api.models
+package com.monsieur.cloy.data.api.models.responses
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import com.monsieur.cloy.data.api.models.UserDto
 
 class LoginResponse(
     @SerializedName("isUserFound")
@@ -13,10 +14,13 @@ class LoginResponse(
     @SerializedName("isAccess")
     @Expose
     var isAccess: Boolean,
-    @SerializedName("token")
+    @SerializedName("accessToken")
     @Expose
-    var token: String,
+    var accessToken: String?,
     @SerializedName("userDto")
     @Expose
-    var userData: UserResponse
+    var userData: UserDto?,
+    @SerializedName("refreshToken")
+    @Expose
+    var refreshToken: String?
 ){}

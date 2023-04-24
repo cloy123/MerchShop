@@ -1,9 +1,14 @@
 package com.monsieur.cloy.data.api
 
-import android.util.Log
 import com.google.gson.GsonBuilder
 import com.monsieur.cloy.data.api.interfaces.MerchShopApiRequests
-import com.monsieur.cloy.data.api.models.LoginResponse
+import com.monsieur.cloy.data.api.models.responses.LoginResponse
+import com.monsieur.cloy.data.api.models.requests.LoginRequest
+import com.monsieur.cloy.data.api.models.requests.LogoutRequest
+import com.monsieur.cloy.data.api.models.requests.RefreshTokenRequest
+import com.monsieur.cloy.data.api.models.responses.GetCatalogInfoResponse
+import com.monsieur.cloy.data.api.models.responses.LogoutResponse
+import com.monsieur.cloy.data.api.models.responses.RefreshTokenResponse
 import okhttp3.OkHttpClient
 import retrofit2.Response
 import retrofit2.Retrofit
@@ -31,13 +36,38 @@ class MerchShopApi {
             )
         ).build()
 
-    fun login(email:String, password:String): Response<LoginResponse> {
+    fun login(loginRequest: LoginRequest): Response<LoginResponse> {
         val merchShopApiRequests = retrofit.create(MerchShopApiRequests::class.java)
-        val login = Login(email, password)
-        val response = merchShopApiRequests.login(login)
+        val response = merchShopApiRequests.login(loginRequest)
+        return response.execute()
+    }
+
+    fun refreshToken(refreshTokenRequest: RefreshTokenRequest): Response<RefreshTokenResponse>{
+        val merchShopApiRequests = retrofit.create(MerchShopApiRequests::class.java)
+        val response = merchShopApiRequests.refreshToken(refreshTokenRequest)
+        return response.execute()
+    }
+
+    fun logout(logoutRequest: LogoutRequest): Response<LogoutResponse>{
+        val merchShopApiRequests = retrofit.create(MerchShopApiRequests::class.java)
+        val response = merchShopApiRequests.logout(logoutRequest)
+
+        return response.execute()
+    }
+
+    fun getCatalogInfo(token: String): Response<GetCatalogInfoResponse>{
+        val merchShopApiRequests = retrofit.create(MerchShopApiRequests::class.java)
+        val response = merchShopApiRequests.getCatalogInfo("Bearer $token")
         return response.execute()
     }
 }
+
+
+
+
+
+
+
 
 private fun getUnsafeOkHttpClient(): OkHttpClient {
     return try {
