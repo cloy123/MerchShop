@@ -7,9 +7,9 @@ import kotlinx.coroutines.withContext
 class TestClass {
     fun start(): String{
 //        try {
-            val response = MerchShopApi().getCatalogInfo("eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjhiNDQ0MzBiLTNjM2ItNGIxNS05NDQ2LTQ3MDQ5MzExMDMxNyIsIkVtYWlsIjoic3R1ZGVudEBzdHVkZW50LnN0dWRlbnQiLCJSb2xlTmFtZSI6InN0dWRlbnQiLCJuYmYiOjE2ODIzNjk2MTgsImV4cCI6MTY4MjM3MzIxOCwiaWF0IjoxNjgyMzY5NjE4LCJpc3MiOiJNZXJjaFNob3BBcGkifQ.cbnOMNYag3FhyaCcGcxBR8V0Z9q-TSYloTwEbEIznGxPqg-4S6nJfrX1qzKqAAnBgUPRF8ZeirykR3keZa_upA")
+            val response = MerchShopApi().getEventsInfo("eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJJZCI6IjhiNDQ0MzBiLTNjM2ItNGIxNS05NDQ2LTQ3MDQ5MzExMDMxNyIsIkVtYWlsIjoic3R1ZGVudEBzdHVkZW50LnN0dWRlbnQiLCJSb2xlTmFtZSI6InN0dWRlbnQiLCJuYmYiOjE2ODI0NTQyNzUsImV4cCI6MTY4MjQ1Nzg3NSwiaWF0IjoxNjgyNDU0Mjc1LCJpc3MiOiJNZXJjaFNob3BBcGkifQ.Xh4ys0rd8JGiX2gVUrTlVvha0eRWPeD58ELLtUszlN1pA1gtfipOuAJ-2Lvsh9sv7QWWxY4VpYyiWVaPiTE4yg")
             if(response.isSuccessful && response.body() != null){
-                return response.body()!!.products[0].productType.name
+                return response.body()!!.events[0].eventResponsibles[0].lastName
             }else{
                 return "not successful " + response.raw()
             }

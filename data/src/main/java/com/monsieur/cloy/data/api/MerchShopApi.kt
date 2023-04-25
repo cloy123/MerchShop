@@ -2,13 +2,10 @@ package com.monsieur.cloy.data.api
 
 import com.google.gson.GsonBuilder
 import com.monsieur.cloy.data.api.interfaces.MerchShopApiRequests
-import com.monsieur.cloy.data.api.models.responses.LoginResponse
 import com.monsieur.cloy.data.api.models.requests.LoginRequest
 import com.monsieur.cloy.data.api.models.requests.LogoutRequest
 import com.monsieur.cloy.data.api.models.requests.RefreshTokenRequest
-import com.monsieur.cloy.data.api.models.responses.GetCatalogInfoResponse
-import com.monsieur.cloy.data.api.models.responses.LogoutResponse
-import com.monsieur.cloy.data.api.models.responses.RefreshTokenResponse
+import com.monsieur.cloy.data.api.models.responses.*
 import okhttp3.OkHttpClient
 import retrofit2.Response
 import retrofit2.Retrofit
@@ -58,6 +55,12 @@ class MerchShopApi {
     fun getCatalogInfo(token: String): Response<GetCatalogInfoResponse>{
         val merchShopApiRequests = retrofit.create(MerchShopApiRequests::class.java)
         val response = merchShopApiRequests.getCatalogInfo("Bearer $token")
+        return response.execute()
+    }
+
+    fun getEventsInfo(token: String): Response<GetEventsInfoResponse>{
+        val merchShopApiRequests = retrofit.create(MerchShopApiRequests::class.java)
+        val response = merchShopApiRequests.getEventsInfo("Bearer $token")
         return response.execute()
     }
 }

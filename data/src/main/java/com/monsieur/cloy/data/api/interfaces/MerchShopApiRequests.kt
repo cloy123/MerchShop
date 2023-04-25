@@ -3,10 +3,7 @@ package com.monsieur.cloy.data.api.interfaces
 import com.monsieur.cloy.data.api.models.requests.LoginRequest
 import com.monsieur.cloy.data.api.models.requests.LogoutRequest
 import com.monsieur.cloy.data.api.models.requests.RefreshTokenRequest
-import com.monsieur.cloy.data.api.models.responses.GetCatalogInfoResponse
-import com.monsieur.cloy.data.api.models.responses.LoginResponse
-import com.monsieur.cloy.data.api.models.responses.LogoutResponse
-import com.monsieur.cloy.data.api.models.responses.RefreshTokenResponse
+import com.monsieur.cloy.data.api.models.responses.*
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -20,4 +17,7 @@ interface MerchShopApiRequests {
 
     @GET("catalog/getCatalogInfo")
     fun getCatalogInfo(@Header("Authorization") authorization: String): Call<GetCatalogInfoResponse>
+
+    @GET("events/getEventsInfo")
+    fun getEventsInfo(@Header("Authorization") authorization: String): Call<GetEventsInfoResponse>
 }
