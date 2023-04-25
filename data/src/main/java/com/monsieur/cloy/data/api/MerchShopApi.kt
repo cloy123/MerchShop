@@ -63,6 +63,18 @@ class MerchShopApi {
         val response = merchShopApiRequests.getEventsInfo("Bearer $token")
         return response.execute()
     }
+
+    fun getUserInfo(token: String): Response<GetUserInfoResponse>{
+        val merchShopApiRequests = retrofit.create(MerchShopApiRequests::class.java)
+        val response = merchShopApiRequests.getUserInfo("Bearer $token")
+        return response.execute()
+    }
+
+    fun getOrdersInfo(token: String): Response<GetOrdersInfoResponse>{
+        val merchShopApiRequests = retrofit.create(MerchShopApiRequests::class.java)
+        val response = merchShopApiRequests.getOrdersInfo("Bearer $token")
+        return response.execute()
+    }
 }
 
 

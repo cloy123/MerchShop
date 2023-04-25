@@ -20,4 +20,10 @@ interface MerchShopApiRequests {
 
     @GET("events/getEventsInfo")
     fun getEventsInfo(@Header("Authorization") authorization: String): Call<GetEventsInfoResponse>
+
+    @GET("users/getUserInfo")
+    fun getUserInfo(@Header("Authorization") authorization: String): Call<GetUserInfoResponse>
+
+    @GET("orders/getOrdersInfo")
+    fun getOrdersInfo(@Header("Authorization") authorization: String): Call<GetOrdersInfoResponse>
 }
