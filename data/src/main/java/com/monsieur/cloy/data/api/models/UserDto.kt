@@ -41,10 +41,10 @@ class UserDto(
     var pointBalance: Int,
     @SerializedName("classNumber")
     @Expose
-    var classNumber: Int,
+    var classNumber: Int?,
     @SerializedName("classLetter")
     @Expose
-    var classLetter: String,
+    var classLetter: String?,
     @SerializedName("genderId")
     @Expose
     var genderId: Int,
