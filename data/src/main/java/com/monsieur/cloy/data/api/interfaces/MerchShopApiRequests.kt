@@ -26,4 +26,7 @@ interface MerchShopApiRequests {
 
     @GET("orders/getOrdersInfo")
     fun getOrdersInfo(@Header("Authorization") authorization: String): Call<GetOrdersInfoResponse>
+
+    @GET("notifications/getNotificationsInfo")
+    fun getNotificationsInfo(@Header("Authorization") authorization: String): Call<GetNotificationsInfoResponse>
 }
