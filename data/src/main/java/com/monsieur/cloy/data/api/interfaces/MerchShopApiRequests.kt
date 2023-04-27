@@ -29,4 +29,7 @@ interface MerchShopApiRequests {
 
     @GET("notifications/getNotificationsInfo")
     fun getNotificationsInfo(@Header("Authorization") authorization: String): Call<GetNotificationsInfoResponse>
+
+    @GET("currencyTransactions/getCurrencyTransactionsInfo")
+    fun getCurrencyTransactionsInfo(@Header("Authorization") authorization: String): Call<GetCurrencyTransactionsInfoResponse>
 }

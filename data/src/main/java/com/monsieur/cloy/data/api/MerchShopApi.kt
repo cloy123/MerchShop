@@ -81,6 +81,12 @@ class MerchShopApi {
         val response = merchShopApiRequests.getNotificationsInfo("Bearer $token")
         return response.execute()
     }
+
+    fun getCurrencyTransactionsInfo(token: String): Response<GetCurrencyTransactionsInfoResponse>{
+        val merchShopApiRequests = retrofit.create(MerchShopApiRequests::class.java)
+        val response = merchShopApiRequests.getCurrencyTransactionsInfo("Bearer $token")
+        return response.execute()
+    }
 }
 
 
