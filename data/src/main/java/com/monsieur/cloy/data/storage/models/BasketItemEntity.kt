@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "basketItems")
 class BasketItemEntity {
-    @ColumnInfo(name = "basketItem_id")
+    @ColumnInfo(name = "basketItemId")
     @NonNull
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0
