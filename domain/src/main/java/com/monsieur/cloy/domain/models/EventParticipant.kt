@@ -1,16 +1,16 @@
 package com.monsieur.cloy.domain.models
 
-class User(
+class EventParticipant(
     var id: String,
+    var eventId: String,
+    var userId: String,
+    var isVisit: Boolean,
     var userTypeId: Int,
     var firstName: String,
     var lastName: String,
-    var birthday: String,
     var email: String,
-    var pointBalance: Int,
     var className: String?,
     var genderId: Int,
-    var accessToken: String,
-    var refreshToken: String
+    var role: EventRole
 ) {
 }

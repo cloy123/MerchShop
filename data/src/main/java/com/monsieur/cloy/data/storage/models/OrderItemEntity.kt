@@ -26,7 +26,7 @@ class OrderItemEntity {
     @NonNull
     var quantity: Int = 0
 
-    @ColumnInfo(name = "price")
+    @ColumnInfo(name = "itemPrice")
     @NonNull
-    var price: Int = 0
+    var itemPrice: Int = 0
 }

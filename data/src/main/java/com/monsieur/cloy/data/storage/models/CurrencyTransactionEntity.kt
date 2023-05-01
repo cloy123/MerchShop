@@ -16,10 +16,6 @@ class CurrencyTransactionEntity {
     @PrimaryKey(autoGenerate = false)
     var id: String = ""
 
-    @ColumnInfo(name = "userId")
-    @NonNull
-    var userId: String = ""
-
     @ColumnInfo(name = "date")
     @NonNull
     var date: LocalDateTime = LocalDateTime.now()

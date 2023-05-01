@@ -18,10 +18,6 @@ class OrderEntity {
     @PrimaryKey(autoGenerate = false)
     var id: String = ""
 
-    @ColumnInfo(name = "userId")
-    @NonNull
-    var userId: String = ""
-
     @ColumnInfo(name = "dateCreation")
     @NonNull
     var dateCreation: LocalDateTime = LocalDateTime.now()

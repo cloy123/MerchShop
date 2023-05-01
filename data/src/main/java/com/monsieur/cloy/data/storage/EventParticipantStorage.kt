@@ -2,6 +2,7 @@ package com.monsieur.cloy.data.storage
 
 import com.monsieur.cloy.data.db.dao.EventParticipantDao
 import com.monsieur.cloy.data.storage.models.EventParticipantEntity
+import com.monsieur.cloy.data.storage.models.EventParticipantWithRole
 import kotlinx.coroutines.flow.Flow
 
 class EventParticipantStorage(private val eventParticipantDao: EventParticipantDao) {
@@ -9,7 +10,7 @@ class EventParticipantStorage(private val eventParticipantDao: EventParticipantD
         eventParticipantDao.insertEventParticipants(eventParticipants)
     }
 
-    fun getAllEventParticipants(): Flow<List<EventParticipantEntity>>{
+    fun getAllEventParticipants(): Flow<List<EventParticipantWithRole>>{
         return eventParticipantDao.getAllEventParticipants()
     }
 

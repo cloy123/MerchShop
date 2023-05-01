@@ -16,10 +16,6 @@ class NotificationEntity {
     @PrimaryKey(autoGenerate = false)
     var id: String = ""
 
-    @ColumnInfo(name = "userId")
-    @NonNull
-    var userId: String = ""
-
     @ColumnInfo(name = "message")
     @NonNull
     var message: String = ""

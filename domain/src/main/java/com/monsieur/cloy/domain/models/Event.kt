@@ -2,10 +2,11 @@ package com.monsieur.cloy.domain.models
 
 import java.time.LocalDateTime
 
-class CurrencyTransaction(
+class Event(
     var id: String,
     var date: LocalDateTime,
-    var currencyTransactionTypeId: Int,
-    var points: Int
+    var name: String,
+    var description: String,
+    var availableFor: List<String>
 ) {
 }
