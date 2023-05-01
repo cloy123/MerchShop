@@ -14,7 +14,7 @@ class EventParticipantStorage(private val eventParticipantDao: EventParticipantD
         return eventParticipantDao.getAllEventParticipants()
     }
 
-    fun deleteAllEventParticipants(){
+    suspend fun deleteAllEventParticipants(){
         eventParticipantDao.deleteAllEventParticipants()
     }
 }

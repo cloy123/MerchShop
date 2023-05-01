@@ -15,5 +15,5 @@ interface EventResponsibleDao {
     fun getAllEventResponsibles(): Flow<List<EventResponsibleEntity>>
 
     @Query("DELETE FROM eventResponsibles")
-    fun deleteAllEventResponsibles()
+    suspend fun deleteAllEventResponsibles()
 }

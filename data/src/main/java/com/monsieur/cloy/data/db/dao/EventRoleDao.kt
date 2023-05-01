@@ -15,5 +15,5 @@ interface EventRoleDao {
     fun getAllEventRoles(): Flow<List<EventRoleEntity>>
 
     @Query("DELETE FROM eventRoles")
-    fun deleteAllEventRoles()
+    suspend fun deleteAllEventRoles()
 }

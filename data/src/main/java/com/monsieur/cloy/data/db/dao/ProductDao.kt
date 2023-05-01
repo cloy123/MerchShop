@@ -15,5 +15,5 @@ interface ProductDao {
     fun getAllProducts(): Flow<List<ProductEntity>>
 
     @Query("DELETE FROM products")
-    fun deleteAllProducts()
+    suspend fun deleteAllProducts()
 }

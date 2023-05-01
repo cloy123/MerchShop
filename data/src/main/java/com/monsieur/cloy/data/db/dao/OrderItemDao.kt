@@ -16,5 +16,5 @@ interface OrderItemDao {
     fun getAllOrderItems(): Flow<List<OrderItemWithProduct>>
 
     @Query("DELETE FROM orderItems")
-    fun deleteAllOrderItems()
+    suspend fun deleteAllOrderItems()
 }

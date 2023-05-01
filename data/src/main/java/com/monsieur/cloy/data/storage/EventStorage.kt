@@ -14,7 +14,7 @@ class EventStorage(private val eventDao: EventDao) {
         return eventDao.getAllEvents()
     }
 
-    fun deleteAllEvents(){
+    suspend fun deleteAllEvents(){
         eventDao.deleteAllEvents()
     }
 }

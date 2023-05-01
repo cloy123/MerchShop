@@ -15,5 +15,5 @@ interface EventDao {
     fun getAllEvents(): Flow<List<EventEntity>>
 
     @Query("DELETE FROM events")
-    fun deleteAllEvents()
+    suspend fun deleteAllEvents()
 }

@@ -18,7 +18,7 @@ class UserStorage(private val userDao: UserDao) {
         return userDao.getUser()
     }
 
-    fun deleteUser(){
+    suspend fun deleteUser(){
         userDao.deleteUser()
     }
 }

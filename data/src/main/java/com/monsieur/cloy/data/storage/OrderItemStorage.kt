@@ -15,7 +15,7 @@ class OrderItemStorage(private val orderItemDao: OrderItemDao) {
         return orderItemDao.getAllOrderItems()
     }
 
-    fun deleteAllOrderItems(){
+    suspend fun deleteAllOrderItems(){
         orderItemDao.deleteAllOrderItems()
     }
 }

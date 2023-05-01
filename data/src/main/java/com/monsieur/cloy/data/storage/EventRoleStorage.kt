@@ -14,7 +14,7 @@ class EventRoleStorage(private val eventRoleDao: EventRoleDao) {
         return eventRoleDao.getAllEventRoles()
     }
 
-    fun deleteAllEventRoles(){
+    suspend fun deleteAllEventRoles(){
         eventRoleDao.deleteAllEventRoles()
     }
 }

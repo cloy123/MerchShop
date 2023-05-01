@@ -14,7 +14,7 @@ class ProductStorage(private val productDao: ProductDao) {
         return productDao.getAllProducts()
     }
 
-    fun deleteAllProducts(){
+    suspend fun deleteAllProducts(){
         productDao.deleteAllProducts()
     }
 }

@@ -15,5 +15,5 @@ interface CurrencyTransactionDao {
     fun getAllCurrencyTransactions(): Flow<List<CurrencyTransactionEntity>>
 
     @Query("DELETE FROM currencyTransactions")
-    fun deleteAllCurrencyTransactions()
+    suspend fun deleteAllCurrencyTransactions()
 }

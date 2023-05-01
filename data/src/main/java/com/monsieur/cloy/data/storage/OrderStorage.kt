@@ -14,7 +14,7 @@ class OrderStorage(private val orderDao: OrderDao) {
         return orderDao.getAllOrders()
     }
 
-    fun deleteAllOrders(){
+    suspend fun deleteAllOrders(){
         orderDao.deleteAllOrders()
     }
 }

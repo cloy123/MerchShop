@@ -16,5 +16,5 @@ interface EventParticipantDao {
     fun getAllEventParticipants(): Flow<List<EventParticipantWithRole>>
 
     @Query("DELETE FROM eventParticipants")
-    fun deleteAllEventParticipants()
+    suspend fun deleteAllEventParticipants()
 }

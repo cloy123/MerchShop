@@ -15,7 +15,7 @@ class CurrencyTransactionStorage(private val currencyTransactionDao: CurrencyTra
         return currencyTransactionDao.getAllCurrencyTransactions()
     }
 
-    fun deleteAllCurrencyTransactions(){
+    suspend fun deleteAllCurrencyTransactions(){
         currencyTransactionDao.deleteAllCurrencyTransactions()
     }
 }

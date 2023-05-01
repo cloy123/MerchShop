@@ -14,7 +14,7 @@ class NotificationStorage(private val notificationDao: NotificationDao) {
         return notificationDao.getAllNotifications()
     }
 
-    fun deleteAllNotifications(){
+    suspend fun deleteAllNotifications(){
         notificationDao.deleteAllNotifications()
     }
 }

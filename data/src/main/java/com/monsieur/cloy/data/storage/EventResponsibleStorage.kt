@@ -14,7 +14,7 @@ class EventResponsibleStorage(private val eventResponsibleDao: EventResponsibleD
         return eventResponsibleDao.getAllEventResponsibles()
     }
 
-    fun deleteAllEventResponsibles(){
+    suspend fun deleteAllEventResponsibles(){
         eventResponsibleDao.deleteAllEventResponsibles()
     }
 }
