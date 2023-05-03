@@ -39,7 +39,7 @@
     <string name="characteristic">Характеристики</string>
     <string name="specification">Описание</string>
     <string name="not_available">Нет в наличии</string>
-    <string name="login_text">Логин</string>
+    <string name="login_text">Email</string>
     <string name="open_catalog">Каталог</string>
     <string name="history">История покупок</string>
     <string-array name="product_types">

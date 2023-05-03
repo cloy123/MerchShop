@@ -46,7 +46,7 @@ class UserRepositoryImpl(
         var isUserFound: Boolean
         var isPasswordCorrect: Boolean
         var isAccess: Boolean
-        try {
+//        try {
             val response = merchShopApi.login(loginRequest)
             isSuccessful = response.isSuccessful
             if (response.isSuccessful && response.body() != null) {
@@ -60,13 +60,13 @@ class UserRepositoryImpl(
                 isAccess = false
                 user = null
             }
-        } catch (e: Exception) {
-            isSuccessful = false
-            isUserFound = false
-            isPasswordCorrect = false
-            isAccess = false
-            user = null
-        }
+//        } catch (e: Exception) {
+//            isSuccessful = false
+//            isUserFound = false
+//            isPasswordCorrect = false
+//            isAccess = false
+//            user = null
+//        }
         return LoginResult(
             user,
             isUserFound,

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/catalog"
+        android:icon="@drawable/ic_round_home_24"
+        android:title="Каталог" />
+    <item
+        android:id="@+id/events"
+        android:icon="@drawable/ic_round_emoji_events_24"
+        android:title="События" />
+    <item
+        android:id="@+id/basket"
+        android:icon="@drawable/ic_round_shopping_cart_24"
+        android:title="Корзина" />
+    <item
+        android:id="@+id/profile"
+        android:icon="@drawable/ic_round_account_circle_24"
+        android:title="Профиль" />
+</menu>

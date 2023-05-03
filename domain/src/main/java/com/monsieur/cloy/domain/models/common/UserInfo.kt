@@ -1,11 +1,14 @@
 package com.monsieur.cloy.domain.models.common
 
+import java.time.LocalDate
+import java.time.LocalDateTime
+
 class UserInfo(
     var id: String,
     var userTypeId: Int,
     var firstName: String,
     var lastName: String,
-    var birthday: String,
+    var birthday: LocalDateTime,
     var email: String,
     var pointBalance: Int,
     var className: String?,

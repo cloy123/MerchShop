@@ -7,6 +7,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import java.time.LocalDateTime
 
 @Entity(tableName = "user")
 class UserEntity {
@@ -29,7 +30,7 @@ class UserEntity {
 
     @ColumnInfo(name = "birthday")
     @NonNull
-    var birthday: String = ""
+    var birthday: LocalDateTime = LocalDateTime.now()
 
     @ColumnInfo(name = "email")
     @NonNull

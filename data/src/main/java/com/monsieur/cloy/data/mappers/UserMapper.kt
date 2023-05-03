@@ -1,5 +1,6 @@
 package com.monsieur.cloy.data.mappers
 
+import com.google.gson.Gson
 import com.monsieur.cloy.data.api.models.responses.GetUserInfoResponse
 import com.monsieur.cloy.data.api.models.responses.LoginResponse
 import com.monsieur.cloy.data.storage.models.ProductEntity
@@ -7,6 +8,9 @@ import com.monsieur.cloy.data.storage.models.UserEntity
 import com.monsieur.cloy.domain.models.Product
 import com.monsieur.cloy.domain.models.User
 import com.monsieur.cloy.domain.models.common.UserInfo
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class UserMapper {
 
@@ -62,7 +66,7 @@ class UserMapper {
             loginResponse.userData!!.userTypeId,
             loginResponse.userData!!.firstName,
             loginResponse.userData!!.lastName,
-            loginResponse.userData!!.birthday,
+            LocalDateTime.parse(loginResponse.userData!!.birthday, DateTimeFormatter.ISO_DATE_TIME),
             loginResponse.userData!!.email,
             loginResponse.userData!!.pointBalance,
             className,
@@ -91,7 +95,7 @@ class UserMapper {
             getUserInfoResponse.user!!.userTypeId,
             getUserInfoResponse.user!!.firstName,
             getUserInfoResponse.user!!.lastName,
-            getUserInfoResponse.user!!.birthday,
+            LocalDateTime.parse(getUserInfoResponse.user!!.birthday, DateTimeFormatter.ISO_DATE_TIME),
             getUserInfoResponse.user!!.email,
             getUserInfoResponse.user!!.pointBalance,
             className,
