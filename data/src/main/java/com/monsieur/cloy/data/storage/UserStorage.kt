@@ -14,7 +14,11 @@ class UserStorage(private val userDao: UserDao) {
         userDao.insertUser(user)
     }
 
-    fun getUser(): Flow<List<UserEntity>>{
+    fun getUserFlow(): Flow<List<UserEntity>>{
+        return userDao.getUserFlow()
+    }
+
+    suspend fun getUser(): List<UserEntity>{
         return userDao.getUser()
     }
 

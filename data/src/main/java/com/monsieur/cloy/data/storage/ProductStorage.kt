@@ -10,8 +10,12 @@ class ProductStorage(private val productDao: ProductDao) {
         productDao.insertProducts(products)
     }
 
-    fun getAllProducts(): Flow<List<ProductEntity>>{
-        return productDao.getAllProducts()
+    fun getProductsFlow(): Flow<List<ProductEntity>>{
+        return productDao.getProductsFlow()
+    }
+
+    suspend fun getProducts(): List<ProductEntity>{
+        return productDao.getProducts()
     }
 
     suspend fun deleteAllProducts(){

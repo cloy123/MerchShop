@@ -6,9 +6,9 @@ import com.google.gson.annotations.SerializedName
 class RefreshTokenResponse(
     @SerializedName("accessToken")
     @Expose
-    var accessToken: String,
+    var accessToken: String?,
     @SerializedName("refreshToken")
     @Expose
-    var refreshToken: String
+    var refreshToken: String?
 ) {
 }

@@ -1,5 +1,6 @@
 package com.monsieur.cloy.data.mappers
 
+import com.monsieur.cloy.data.api.models.ProductDto
 import com.monsieur.cloy.data.storage.models.OrderEntity
 import com.monsieur.cloy.data.storage.models.ProductEntity
 import com.monsieur.cloy.domain.models.Order
@@ -35,5 +36,20 @@ class ProductMapper {
         entity.discount = product.discount
         entity.imageFileName = product.imageFileName
         return entity
+    }
+
+    fun productDtoToProduct(productDto: ProductDto): Product{
+        return Product(
+            productDto.id,
+            productDto.productType.name,
+            productDto.productSize.name,
+            productDto.productColor.name,
+            productDto.productColor.value,
+            productDto.showInCatalog,
+            productDto.freeQuantity,
+            productDto.price,
+            productDto.discount,
+            productDto.imageFileName
+        )
     }
 }

@@ -12,7 +12,10 @@ interface ProductDao {
     suspend fun insertProducts(products: List<ProductEntity>)
 
     @Query("SELECT * FROM products")
-    fun getAllProducts(): Flow<List<ProductEntity>>
+    fun getProductsFlow(): Flow<List<ProductEntity>>
+
+    @Query("SELECT * FROM products")
+    suspend fun getProducts(): List<ProductEntity>
 
     @Query("DELETE FROM products")
     suspend fun deleteAllProducts()

@@ -7,6 +7,6 @@ import com.monsieur.cloy.data.api.models.UserDto
 class GetUserInfoResponse(
     @SerializedName("user")
     @Expose
-    var user: UserDto
+    var user: UserDto?
 ) {
 }

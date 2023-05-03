@@ -1,4 +1,4 @@
-package com.monsieur.cloy.merchshop
+package com.monsieur.cloy.merchshop.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,19 +10,11 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
 
-    @OptIn(DelicateCoroutinesApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        binding.bt.setOnClickListener {
-            GlobalScope.launch {
-                val result = TestClass().start()
-                withContext(Dispatchers.Main){
-                    binding.tv.text = result
-                }
-            }
-        }
+
     }
 
 }

@@ -1,4 +1,4 @@
-package com.monsieur.cloy.domain.models
+package com.monsieur.cloy.domain.models.common
 
 class LoginParam(
     val email: String,
