@@ -4,6 +4,7 @@ import android.widget.Toast
 import androidx.core.view.children
 import androidx.fragment.app.Fragment
 import com.monsieur.cloy.merchshop.R
+import kotlin.math.roundToInt
 
 fun replaceFragment(fragment: Fragment, addStack: Boolean = true) {
     /* Функция расширения для AppCompatActivity, позволяет устанавливать фрагменты */
@@ -56,4 +57,8 @@ fun backButton(){
 
 fun showToast(message: String){
     Toast.makeText(APP_ACTIVITY, message, Toast.LENGTH_LONG).show()
+}
+
+fun calculatePrice(price: Int, discount: Int): Int{
+    return (price.toFloat() - (discount.toFloat()/100 * price.toFloat())).roundToInt()
 }

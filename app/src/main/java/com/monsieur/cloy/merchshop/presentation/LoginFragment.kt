@@ -6,9 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import com.monsieur.cloy.merchshop.R
 import com.monsieur.cloy.merchshop.databinding.FragmentLoginBinding
-import com.monsieur.cloy.merchshop.presentation.main.MainFragment
+import com.monsieur.cloy.merchshop.presentation.catalog.CatalogFragment
 import com.monsieur.cloy.merchshop.presentation.viewModels.MainViewModel
 import com.monsieur.cloy.merchshop.utilits.changeToolBar
 import com.monsieur.cloy.merchshop.utilits.replaceFragment
@@ -49,16 +48,16 @@ class LoginFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        changeToolBar(menu = false, homeButton = true, "Войти")
+        changeToolBar(menu = false, homeButton = false, "Войти")
         viewModel.user.observe(viewLifecycleOwner, Observer {
             if(it != null){
-                replaceFragment(MainFragment(), false)
+                replaceFragment(CatalogFragment(), false)
             }
         })
         viewModel.loginResult.observe(viewLifecycleOwner, Observer{
             if(it != null){
                 if(it.user != null){
-                    replaceFragment(MainFragment(), false)
+                    replaceFragment(CatalogFragment(), false)
                 }else{
                     if(!it.isSuccessful){
                         if(binding.login.text?.isNotEmpty() == true){

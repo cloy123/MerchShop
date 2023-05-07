@@ -42,6 +42,7 @@
     <string name="login_text">Email</string>
     <string name="open_catalog">Каталог</string>
     <string name="history">История покупок</string>
+    <string name="color">Цвет</string>
     <string-array name="product_types">
         <item>Электогитара</item>
         <item>Басс-гитара</item>

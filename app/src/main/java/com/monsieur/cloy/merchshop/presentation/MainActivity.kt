@@ -7,19 +7,17 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.lifecycle.Observer
-import com.monsieur.cloy.data.api.TestClass
 import com.monsieur.cloy.merchshop.R
 import com.monsieur.cloy.merchshop.databinding.ActivityMainBinding
 import com.monsieur.cloy.merchshop.presentation.basket.BasketFragment
 import com.monsieur.cloy.merchshop.presentation.events.EventsFragment
-import com.monsieur.cloy.merchshop.presentation.main.MainFragment
+import com.monsieur.cloy.merchshop.presentation.catalog.CatalogFragment
 import com.monsieur.cloy.merchshop.presentation.profile.ProfileFragment
 import com.monsieur.cloy.merchshop.presentation.viewModels.MainViewModel
 import com.monsieur.cloy.merchshop.utilits.APP_ACTIVITY
 import com.monsieur.cloy.merchshop.utilits.backButton
 import com.monsieur.cloy.merchshop.utilits.replaceFragment
 import com.monsieur.cloy.merchshop.utilits.toolbarMenu
-import kotlinx.coroutines.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
@@ -39,7 +37,7 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigation.setOnItemSelectedListener {
             when(it.itemId){
                 R.id.catalog ->
-                    replaceFragment(MainFragment(), false)
+                    replaceFragment(CatalogFragment(), false)
                 R.id.events ->
                     replaceFragment(EventsFragment(), false)
                 R.id.basket ->
