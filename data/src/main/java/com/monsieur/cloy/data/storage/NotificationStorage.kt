@@ -10,8 +10,8 @@ class NotificationStorage(private val notificationDao: NotificationDao) {
         notificationDao.insertNotifications(notifications)
     }
 
-    fun getAllNotifications(): Flow<List<NotificationEntity>>{
-        return notificationDao.getAllNotifications()
+    fun getNotificationsFlow(): Flow<List<NotificationEntity>>{
+        return notificationDao.getNotificationsFlow()
     }
 
     suspend fun deleteAllNotifications(){

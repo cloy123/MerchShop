@@ -12,7 +12,7 @@ interface NotificationDao {
     suspend fun insertNotifications(notifications: List<NotificationEntity>)
 
     @Query("SELECT * FROM notifications")
-    fun getAllNotifications(): Flow<List<NotificationEntity>>
+    fun getNotificationsFlow(): Flow<List<NotificationEntity>>
 
     @Query("DELETE FROM notifications")
     suspend fun deleteAllNotifications()
