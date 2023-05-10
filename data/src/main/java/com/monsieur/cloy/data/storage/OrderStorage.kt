@@ -10,8 +10,8 @@ class OrderStorage(private val orderDao: OrderDao) {
         orderDao.insertOrders(orders)
     }
 
-    fun getAllOrders(): Flow<List<OrderEntity>>{
-        return orderDao.getAllOrders()
+    fun getOrdersFlow(): Flow<List<OrderEntity>>{
+        return orderDao.getOrdersFlow()
     }
 
     suspend fun deleteAllOrders(){

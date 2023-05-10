@@ -12,7 +12,7 @@ interface OrderDao {
     suspend fun insertOrders(orders: List<OrderEntity>)
 
     @Query("SELECT * FROM orders")
-    fun getAllOrders(): Flow<List<OrderEntity>>
+    fun getOrdersFlow(): Flow<List<OrderEntity>>
 
     @Query("DELETE FROM orders")
     suspend fun deleteAllOrders()

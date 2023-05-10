@@ -1,10 +1,12 @@
 package com.monsieur.cloy.data.storage.models
 
 import androidx.annotation.NonNull
+import androidx.annotation.Nullable
 import androidx.room.ColumnInfo
 import androidx.room.PrimaryKey
+import java.time.LocalDateTime
 
-class OrderItemWithProduct {
+class OrderItemWithProductAndOrder {
     @ColumnInfo(name = "id")
     var id: String = ""
 
@@ -46,4 +48,16 @@ class OrderItemWithProduct {
 
     @ColumnInfo(name = "imageFileName")
     var imageFileName: String = ""
+
+    @ColumnInfo(name = "dateCreation")
+    var dateCreation: LocalDateTime = LocalDateTime.now()
+
+    @ColumnInfo(name = "dateCompletion")
+    var dateCompletion: LocalDateTime? = LocalDateTime.now()
+
+    @ColumnInfo(name = "statusId")
+    var statusId: Int = 0
+
+    @ColumnInfo(name = "orderSum")
+    var orderSum: Int = 0
 }

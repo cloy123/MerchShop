@@ -5,6 +5,7 @@ class OrderItem(
     var orderId: String,
     var quantity: Int,
     var itemPrice: Int,
-    var product: Product
+    var product: Product,
+    var order: Order
 ) {
 }
