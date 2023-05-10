@@ -12,7 +12,10 @@ interface EventResponsibleDao {
     suspend fun insertEventResponsibles(eventResponsibles: List<EventResponsibleEntity>)
 
     @Query("SELECT * FROM eventResponsibles")
-    fun getAllEventResponsibles(): Flow<List<EventResponsibleEntity>>
+    fun getEventResponsiblesFlow(): Flow<List<EventResponsibleEntity>>
+
+    @Query("SELECT * FROM eventResponsibles")
+    suspend fun getEventResponsibles(): List<EventResponsibleEntity>
 
     @Query("DELETE FROM eventResponsibles")
     suspend fun deleteAllEventResponsibles()

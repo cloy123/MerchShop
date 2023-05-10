@@ -1,9 +1,12 @@
 package com.monsieur.cloy.data.mappers
 
+import com.monsieur.cloy.data.api.models.EventRoleDto
+import com.monsieur.cloy.data.api.models.ProductDto
 import com.monsieur.cloy.data.storage.models.EventResponsibleEntity
 import com.monsieur.cloy.data.storage.models.EventRoleEntity
 import com.monsieur.cloy.domain.models.EventResponsible
 import com.monsieur.cloy.domain.models.EventRole
+import com.monsieur.cloy.domain.models.Product
 
 class EventRoleMapper {
 
@@ -25,5 +28,15 @@ class EventRoleMapper {
         entity.eventId = eventRole.eventId
         entity.prize = eventRole.prize
         return entity
+    }
+
+    fun roleDtoToRole(roleDto: EventRoleDto): EventRole {
+        return EventRole(
+            roleDto.id,
+            roleDto.name,
+            roleDto.userTypeId,
+            roleDto.eventId,
+            roleDto.prize
+        )
     }
 }

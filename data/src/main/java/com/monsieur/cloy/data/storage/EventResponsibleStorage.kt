@@ -10,8 +10,12 @@ class EventResponsibleStorage(private val eventResponsibleDao: EventResponsibleD
         eventResponsibleDao.insertEventResponsibles(eventResponsibles)
     }
 
-    fun getAllEventResponsibles(): Flow<List<EventResponsibleEntity>>{
-        return eventResponsibleDao.getAllEventResponsibles()
+    fun getEventResponsiblesFlow(): Flow<List<EventResponsibleEntity>>{
+        return eventResponsibleDao.getEventResponsiblesFlow()
+    }
+
+    suspend fun getEventResponsibles(): List<EventResponsibleEntity>{
+        return eventResponsibleDao.getEventResponsibles()
     }
 
     suspend fun deleteAllEventResponsibles(){

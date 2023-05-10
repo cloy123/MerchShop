@@ -10,8 +10,12 @@ class EventRoleStorage(private val eventRoleDao: EventRoleDao) {
         eventRoleDao.insertEventRoles(eventRoles)
     }
 
-    fun getAllEventRoles(): Flow<List<EventRoleEntity>>{
-        return eventRoleDao.getAllEventRoles()
+    fun getEventRolesFlow(): Flow<List<EventRoleEntity>>{
+        return eventRoleDao.getEventRolesFlow()
+    }
+
+    suspend fun getEventRoles(): List<EventRoleEntity>{
+        return eventRoleDao.getEventRoles()
     }
 
     suspend fun deleteAllEventRoles(){

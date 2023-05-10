@@ -13,7 +13,10 @@ interface EventParticipantDao {
     suspend fun insertEventParticipants(eventParticipants: List<EventParticipantEntity>)
 
     @Query("SELECT * FROM eventParticipants INNER JOIN eventRoles on eventParticipants.eventRoleId = eventRoles.id")
-    fun getAllEventParticipants(): Flow<List<EventParticipantWithRole>>
+    fun getEventParticipantsFlow(): Flow<List<EventParticipantWithRole>>
+
+    @Query("SELECT * FROM eventParticipants INNER JOIN eventRoles on eventParticipants.eventRoleId = eventRoles.id")
+    suspend fun getEventParticipants(): List<EventParticipantWithRole>
 
     @Query("DELETE FROM eventParticipants")
     suspend fun deleteAllEventParticipants()

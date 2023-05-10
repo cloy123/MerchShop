@@ -10,8 +10,12 @@ class EventStorage(private val eventDao: EventDao) {
         eventDao.insertEvents(events)
     }
 
-    fun getAllEvents(): Flow<List<EventEntity>>{
-        return eventDao.getAllEvents()
+    fun getEventsFlow(): Flow<List<EventEntity>>{
+        return eventDao.getEventsFlow()
+    }
+
+    suspend fun getEvents(): List<EventEntity>{
+        return eventDao.getEvents()
     }
 
     suspend fun deleteAllEvents(){

@@ -12,7 +12,10 @@ interface EventDao {
     suspend fun insertEvents(events: List<EventEntity>)
 
     @Query("SELECT * FROM events")
-    fun getAllEvents(): Flow<List<EventEntity>>
+    fun getEventsFlow(): Flow<List<EventEntity>>
+
+    @Query("SELECT * FROM events")
+    suspend fun getEvents(): List<EventEntity>
 
     @Query("DELETE FROM events")
     suspend fun deleteAllEvents()

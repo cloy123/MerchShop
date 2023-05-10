@@ -12,7 +12,10 @@ interface EventRoleDao {
     suspend fun insertEventRoles(eventRoles: List<EventRoleEntity>)
 
     @Query("SELECT * FROM eventRoles")
-    fun getAllEventRoles(): Flow<List<EventRoleEntity>>
+    fun getEventRolesFlow(): Flow<List<EventRoleEntity>>
+
+    @Query("SELECT * FROM eventRoles")
+    suspend fun getEventRoles(): List<EventRoleEntity>
 
     @Query("DELETE FROM eventRoles")
     suspend fun deleteAllEventRoles()

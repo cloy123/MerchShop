@@ -10,8 +10,12 @@ class EventParticipantStorage(private val eventParticipantDao: EventParticipantD
         eventParticipantDao.insertEventParticipants(eventParticipants)
     }
 
-    fun getAllEventParticipants(): Flow<List<EventParticipantWithRole>>{
-        return eventParticipantDao.getAllEventParticipants()
+    fun getAllEventParticipantsFlow(): Flow<List<EventParticipantWithRole>>{
+        return eventParticipantDao.getEventParticipantsFlow()
+    }
+
+    suspend fun getEventParticipants(): List<EventParticipantWithRole>{
+        return eventParticipantDao.getEventParticipants()
     }
 
     suspend fun deleteAllEventParticipants(){

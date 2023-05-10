@@ -1,9 +1,12 @@
 package com.monsieur.cloy.data.mappers
 
+import com.monsieur.cloy.data.api.models.EventResponsibleDto
+import com.monsieur.cloy.data.api.models.EventRoleDto
 import com.monsieur.cloy.data.storage.models.EventEntity
 import com.monsieur.cloy.data.storage.models.EventResponsibleEntity
 import com.monsieur.cloy.domain.models.Event
 import com.monsieur.cloy.domain.models.EventResponsible
+import com.monsieur.cloy.domain.models.EventRole
 
 class EventResponsibleMapper {
 
@@ -33,5 +36,31 @@ class EventResponsibleMapper {
         entity.className = eventResponsible.className
         entity.genderId = eventResponsible.genderId
         return entity
+    }
+
+    fun responsibleDtoToResponsible(responsibleDto: EventResponsibleDto): EventResponsible {
+
+        var className: String? = ""
+        if(responsibleDto.classNumber != null){
+            className += responsibleDto.classNumber.toString()
+        }
+        if(responsibleDto.classLetter != null){
+            className += responsibleDto.classLetter
+        }
+        if(className == ""){
+            className = null
+        }
+
+        return EventResponsible(
+            responsibleDto.id,
+            responsibleDto.eventId,
+            responsibleDto.userId,
+            responsibleDto.userTypeId,
+            responsibleDto.firstName,
+            responsibleDto.lastName,
+            responsibleDto.email,
+            className,
+            responsibleDto.genderId
+        )
     }
 }

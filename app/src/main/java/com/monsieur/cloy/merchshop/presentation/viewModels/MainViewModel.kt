@@ -8,6 +8,7 @@ import com.monsieur.cloy.domain.models.Product
 import com.monsieur.cloy.domain.models.User
 import com.monsieur.cloy.domain.models.common.LoginParam
 import com.monsieur.cloy.domain.models.common.LoginResult
+import com.monsieur.cloy.domain.models.common.UpdateProductDataResult
 import com.monsieur.cloy.domain.usecase.GetProductsUseCase
 import com.monsieur.cloy.domain.usecase.GetUserUseCase
 import com.monsieur.cloy.domain.usecase.LoginUseCase
@@ -16,6 +17,7 @@ import com.monsieur.cloy.merchshop.presentation.catalog.Color
 import com.monsieur.cloy.merchshop.presentation.catalog.FiltersSettings
 import com.monsieur.cloy.merchshop.presentation.catalog.Sort
 import com.monsieur.cloy.merchshop.utilits.calculatePrice
+import com.monsieur.cloy.merchshop.utilits.showToast
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
@@ -31,13 +33,15 @@ class MainViewModel(
 
     val loginResult = MutableLiveData<LoginResult?>()
 
+    val updateProductDataResult = MutableLiveData<UpdateProductDataResult?>()
+
     var products = ArrayList<Product>()
 
     var types = MutableLiveData<ArrayList<String>>()
 
     var colors = MutableLiveData<ArrayList<Color>>()
 
-    val filteredProducts = MutableLiveData<List<Product>>()
+    val filteredProducts = MutableLiveData<List<List<Product>>>()
 
     var filtersSettings: FiltersSettings =
         FiltersSettings(Sort.ByName, 0, 99999999, ArrayList(), ArrayList())
@@ -63,7 +67,16 @@ class MainViewModel(
         }
     }
 
-    private fun filterProducts(products: List<Product>): List<Product> {
+    fun setFilters(filtersSettings: FiltersSettings) {
+        this.filtersSettings = filtersSettings
+        viewModelScope.launch(Dispatchers.IO) {
+            if (filteredProducts.value != null) {
+                filteredProducts.postValue(filterProducts(products))
+            }
+        }
+    }
+
+    private fun filterProducts(products: List<Product>): List<List<Product>> {
         if (products.isEmpty()) {
             return ArrayList()
         } else {
@@ -74,6 +87,8 @@ class MainViewModel(
                 product.showInCatalog
             }
 
+            var result = ArrayList<List<Product>>()
+
             val recurringProducts = ArrayList<Product>()
             for(product in list){
                 if(!newTypes.contains(product.typeName)){
@@ -83,10 +98,13 @@ class MainViewModel(
                 if(!newColors.contains(color)){
                     newColors.add(color)
                 }
-                recurringProducts.addAll(list.filter { p ->
-                    p.colorName == product.colorName && p.typeName == product.typeName
-                            && !recurringProducts.contains(p)
-                })
+
+                if(recurringProducts.find { it.colorName == product.colorName && it.typeName == product.typeName } == null){
+                    recurringProducts.addAll(list.filter { p ->
+                        p.colorName == product.colorName && p.typeName == product.typeName
+                                && p != product
+                    })
+                }
             }
 
             list = list.filter { p ->
@@ -124,7 +142,17 @@ class MainViewModel(
                     )
                 }
             }
-            return list
+
+            for(p in list){
+                var r = ArrayList<Product>()
+                r.add(p)
+                r.addAll(recurringProducts.filter {
+                    it.typeName == p.typeName && it.colorName == p.colorName
+                })
+                result.add(r)
+            }
+
+            return result
         }
     }
 
@@ -132,6 +160,15 @@ class MainViewModel(
         viewModelScope.launch(Dispatchers.Default){
             loginUseCase.execute(LoginParam(email, password)).first {
                 loginResult.postValue(it)
+                true
+            }
+        }
+    }
+
+    fun updateProductData(){
+        viewModelScope.launch(Dispatchers.Default) {
+            updateProductsDataUseCase.execute().first {
+                updateProductDataResult.postValue(it)
                 true
             }
         }

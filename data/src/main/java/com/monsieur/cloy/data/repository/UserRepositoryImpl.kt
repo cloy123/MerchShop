@@ -108,7 +108,7 @@ class UserRepositoryImpl(
         var newAccessToken: String?
         var newRefreshToken: String?
         var code: Int
-        try {
+//        try {
             val response = merchShopApi.refreshToken(RefreshTokenRequest(accessToken, refreshToken))
             isSuccessful = response.isSuccessful
             code = response.code()
@@ -119,12 +119,12 @@ class UserRepositoryImpl(
                 newAccessToken = null
                 newRefreshToken = null
             }
-        } catch (e: Exception) {
-            code = -1
-            isSuccessful = false
-            newAccessToken = null
-            newRefreshToken = null
-        }
+//        } catch (e: Exception) {
+//            code = -1
+//            isSuccessful = false
+//            newAccessToken = null
+//            newRefreshToken = null
+//        }
         return RefreshTokenResult(newAccessToken, newRefreshToken, isSuccessful, code)
     }
 }
