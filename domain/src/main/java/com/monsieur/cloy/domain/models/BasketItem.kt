@@ -5,4 +5,5 @@ class BasketItem(
     var product: Product,
     var quantity: Int
 ) {
+
 }

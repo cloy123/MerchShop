@@ -2,6 +2,7 @@ package com.monsieur.cloy.data.api
 
 import com.google.gson.GsonBuilder
 import com.monsieur.cloy.data.api.interfaces.MerchShopApiRequests
+import com.monsieur.cloy.data.api.models.requests.CreateOrderRequest
 import com.monsieur.cloy.data.api.models.requests.LoginRequest
 import com.monsieur.cloy.data.api.models.requests.LogoutRequest
 import com.monsieur.cloy.data.api.models.requests.RefreshTokenRequest
@@ -85,6 +86,12 @@ class MerchShopApi {
     fun getCurrencyTransactionsInfo(token: String): Response<GetCurrencyTransactionsInfoResponse>{
         val merchShopApiRequests = retrofit.create(MerchShopApiRequests::class.java)
         val response = merchShopApiRequests.getCurrencyTransactionsInfo("Bearer $token")
+        return response.execute()
+    }
+
+    fun createOrder(token: String, createOrderRequest: CreateOrderRequest): Response<CreateOrderResponse>{
+        val merchShopApiRequests = retrofit.create(MerchShopApiRequests::class.java)
+        val response = merchShopApiRequests.createOrder("Bearer $token", createOrderRequest)
         return response.execute()
     }
 }

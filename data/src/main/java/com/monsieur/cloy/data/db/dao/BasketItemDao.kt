@@ -20,5 +20,11 @@ interface BasketItemDao {
     suspend fun deleteBasketItemById(id: Int)
 
     @Query("SELECT * FROM basketItems  INNER JOIN products on products.id = basketItems.productId")
-    fun getAllBasketItems(): Flow<List<BasketItemWithProduct>>
+    fun getBasketItemsFlow(): Flow<List<BasketItemWithProduct>>
+
+    @Query("SELECT * FROM basketItems  INNER JOIN products on products.id = basketItems.productId")
+    suspend fun getBasketItems(): List<BasketItemWithProduct>
+
+    @Query("DELETE FROM basketItems")
+    suspend fun deleteAllBasketItems()
 }

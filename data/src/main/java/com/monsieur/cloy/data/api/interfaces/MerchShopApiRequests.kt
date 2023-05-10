@@ -1,5 +1,6 @@
 package com.monsieur.cloy.data.api.interfaces
 
+import com.monsieur.cloy.data.api.models.requests.CreateOrderRequest
 import com.monsieur.cloy.data.api.models.requests.LoginRequest
 import com.monsieur.cloy.data.api.models.requests.LogoutRequest
 import com.monsieur.cloy.data.api.models.requests.RefreshTokenRequest
@@ -32,4 +33,7 @@ interface MerchShopApiRequests {
 
     @GET("currencyTransactions/getCurrencyTransactionsInfo")
     fun getCurrencyTransactionsInfo(@Header("Authorization") authorization: String): Call<GetCurrencyTransactionsInfoResponse>
+
+    @POST("orders/create")
+    fun createOrder(@Header("Authorization") authorization: String, @Body createOrderRequest: CreateOrderRequest): Call<CreateOrderResponse>
 }

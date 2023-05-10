@@ -6,8 +6,13 @@ import com.monsieur.cloy.data.storage.models.BasketItemWithProduct
 import kotlinx.coroutines.flow.Flow
 
 class BasketItemStorage(private val basketItemDao: BasketItemDao) {
-    fun getAllBasketItems(): Flow<List<BasketItemWithProduct>> {
-        return basketItemDao.getAllBasketItems()
+
+    fun getBasketItemsFlow(): Flow<List<BasketItemWithProduct>> {
+        return basketItemDao.getBasketItemsFlow()
+    }
+
+    suspend fun getBasketItems(): List<BasketItemWithProduct> {
+        return basketItemDao.getBasketItems()
     }
 
     suspend fun insertBasketItem(basketItem: BasketItemEntity) {
@@ -20,5 +25,9 @@ class BasketItemStorage(private val basketItemDao: BasketItemDao) {
 
     suspend fun updateBasketItem(basketItem: BasketItemEntity) {
         basketItemDao.updateBasketItem(basketItem)
+    }
+
+    suspend fun deleteAllBasketItems(){
+        basketItemDao.deleteAllBasketItems()
     }
 }
