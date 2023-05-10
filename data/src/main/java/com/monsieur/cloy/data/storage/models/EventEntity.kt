@@ -26,6 +26,10 @@ class EventEntity {
     @NonNull
     var name: String = ""
 
+    @ColumnInfo(name = "isCompleted")
+    @NonNull
+    var isCompleted: Boolean = false
+
     @ColumnInfo(name = "description")
     @NonNull
     var description: String = ""

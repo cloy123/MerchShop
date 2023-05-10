@@ -7,6 +7,7 @@ class Event(
     var date: LocalDateTime,
     var name: String,
     var description: String,
-    var availableFor: List<String>
+    var availableFor: List<String>,
+    var isCompleted: Boolean
 ) {
 }

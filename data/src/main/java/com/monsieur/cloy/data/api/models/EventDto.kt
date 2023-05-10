@@ -19,6 +19,9 @@ class EventDto(
     @SerializedName("availableFor")
     @Expose
     var availableFor: List<String>,
+    @SerializedName("isCompleted")
+    @Expose
+    var isCompleted: Boolean,
     @SerializedName("eventResponsibles")
     @Expose
     var eventResponsibles: List<EventResponsibleDto>,

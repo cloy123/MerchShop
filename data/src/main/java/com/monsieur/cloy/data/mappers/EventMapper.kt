@@ -18,7 +18,8 @@ class EventMapper {
             eventEntity.date,
             eventEntity.name,
             eventEntity.description,
-            eventEntity.availableFor
+            eventEntity.availableFor,
+            eventEntity.isCompleted
         )
     }
 
@@ -29,6 +30,7 @@ class EventMapper {
         entity.name = event.name
         entity.description = event.description
         entity.availableFor = event.availableFor
+        entity.isCompleted = event.isCompleted
         return entity
     }
 
@@ -38,7 +40,8 @@ class EventMapper {
             LocalDateTime.parse(eventDto.date, DateTimeFormatter.ISO_DATE_TIME),
             eventDto.name,
             eventDto.description,
-            eventDto.availableFor
+            eventDto.availableFor,
+            eventDto.isCompleted
         )
     }
 }
