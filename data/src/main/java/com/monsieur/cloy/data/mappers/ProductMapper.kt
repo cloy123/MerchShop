@@ -1,9 +1,7 @@
 package com.monsieur.cloy.data.mappers
 
 import com.monsieur.cloy.data.api.models.ProductDto
-import com.monsieur.cloy.data.storage.models.OrderEntity
 import com.monsieur.cloy.data.storage.models.ProductEntity
-import com.monsieur.cloy.domain.models.Order
 import com.monsieur.cloy.domain.models.Product
 
 class ProductMapper {

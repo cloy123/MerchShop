@@ -1,12 +1,8 @@
 package com.monsieur.cloy.data.mappers
 
-import com.monsieur.cloy.data.api.models.NotificationDto
 import com.monsieur.cloy.data.api.models.OrderDto
-import com.monsieur.cloy.data.storage.models.NotificationEntity
 import com.monsieur.cloy.data.storage.models.OrderEntity
-import com.monsieur.cloy.domain.models.Notification
 import com.monsieur.cloy.domain.models.Order
-import com.monsieur.cloy.domain.models.OrderItem
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 

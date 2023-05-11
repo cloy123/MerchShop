@@ -1,8 +1,6 @@
 package com.monsieur.cloy.data.storage.models
 
-import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
-import androidx.room.PrimaryKey
 
 class BasketItemWithProduct {
     @ColumnInfo(name = "basketItemId")

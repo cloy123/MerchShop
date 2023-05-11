@@ -1,12 +1,8 @@
 package com.monsieur.cloy.data.mappers
 
 import com.monsieur.cloy.data.api.models.EventDto
-import com.monsieur.cloy.data.api.models.EventRoleDto
-import com.monsieur.cloy.data.storage.models.CurrencyTransactionEntity
 import com.monsieur.cloy.data.storage.models.EventEntity
-import com.monsieur.cloy.domain.models.CurrencyTransaction
 import com.monsieur.cloy.domain.models.Event
-import com.monsieur.cloy.domain.models.EventRole
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 

@@ -2,8 +2,6 @@ package com.monsieur.cloy.data.api.models
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
-import java.time.LocalDate
-import java.time.LocalDateTime
 
 class UserDto(
     @SerializedName("id")

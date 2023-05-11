@@ -1,12 +1,8 @@
 package com.monsieur.cloy.data.mappers
 
 import com.monsieur.cloy.data.api.models.EventRoleDto
-import com.monsieur.cloy.data.api.models.ProductDto
-import com.monsieur.cloy.data.storage.models.EventResponsibleEntity
 import com.monsieur.cloy.data.storage.models.EventRoleEntity
-import com.monsieur.cloy.domain.models.EventResponsible
 import com.monsieur.cloy.domain.models.EventRole
-import com.monsieur.cloy.domain.models.Product
 
 class EventRoleMapper {
 

@@ -4,9 +4,7 @@ import com.monsieur.cloy.data.api.MerchShopApi
 import com.monsieur.cloy.data.mappers.ProductMapper
 import com.monsieur.cloy.data.storage.ProductStorage
 import com.monsieur.cloy.domain.models.Product
-import com.monsieur.cloy.domain.models.common.GetUserInfoResult
 import com.monsieur.cloy.domain.models.common.UpdateProductDataResult
-import com.monsieur.cloy.domain.models.common.UserInfo
 import com.monsieur.cloy.domain.repository.ProductRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map

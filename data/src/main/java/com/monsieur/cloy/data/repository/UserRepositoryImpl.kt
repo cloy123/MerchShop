@@ -2,6 +2,7 @@ package com.monsieur.cloy.data.repository
 
 import com.monsieur.cloy.data.api.MerchShopApi
 import com.monsieur.cloy.data.api.models.requests.LoginRequest
+import com.monsieur.cloy.data.api.models.requests.LogoutRequest
 import com.monsieur.cloy.data.api.models.requests.RefreshTokenRequest
 import com.monsieur.cloy.data.mappers.UserMapper
 import com.monsieur.cloy.data.storage.UserStorage
@@ -46,7 +47,7 @@ class UserRepositoryImpl(
         var isUserFound: Boolean
         var isPasswordCorrect: Boolean
         var isAccess: Boolean
-//        try {
+        try {
             val response = merchShopApi.login(loginRequest)
             isSuccessful = response.isSuccessful
             if (response.isSuccessful && response.body() != null) {
@@ -60,13 +61,13 @@ class UserRepositoryImpl(
                 isAccess = false
                 user = null
             }
-//        } catch (e: Exception) {
-//            isSuccessful = false
-//            isUserFound = false
-//            isPasswordCorrect = false
-//            isAccess = false
-//            user = null
-//        }
+        } catch (e: Exception) {
+            isSuccessful = false
+            isUserFound = false
+            isPasswordCorrect = false
+            isAccess = false
+            user = null
+        }
         return LoginResult(
             user,
             isUserFound,
@@ -108,7 +109,7 @@ class UserRepositoryImpl(
         var newAccessToken: String?
         var newRefreshToken: String?
         var code: Int
-//        try {
+        try {
             val response = merchShopApi.refreshToken(RefreshTokenRequest(accessToken, refreshToken))
             isSuccessful = response.isSuccessful
             code = response.code()
@@ -119,12 +120,21 @@ class UserRepositoryImpl(
                 newAccessToken = null
                 newRefreshToken = null
             }
-//        } catch (e: Exception) {
-//            code = -1
-//            isSuccessful = false
-//            newAccessToken = null
-//            newRefreshToken = null
-//        }
+        } catch (e: Exception) {
+            code = -1
+            isSuccessful = false
+            newAccessToken = null
+            newRefreshToken = null
+        }
         return RefreshTokenResult(newAccessToken, newRefreshToken, isSuccessful, code)
+    }
+
+    override suspend fun logout(accessToken: String, refreshToken: String) {
+        val request = LogoutRequest(accessToken, refreshToken)
+        try {
+            val response = merchShopApi.logout(request)
+        } catch (e: Exception) {
+
+        }
     }
 }

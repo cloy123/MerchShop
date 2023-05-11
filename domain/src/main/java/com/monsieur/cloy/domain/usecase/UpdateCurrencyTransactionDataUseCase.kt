@@ -1,7 +1,6 @@
 package com.monsieur.cloy.domain.usecase
 
 import com.monsieur.cloy.domain.models.common.UpdateCurrencyTransactionDataResult
-import com.monsieur.cloy.domain.models.common.UpdateProductDataResult
 import com.monsieur.cloy.domain.repository.CurrencyTransactionRepository
 import com.monsieur.cloy.domain.repository.UserRepository
 import kotlinx.coroutines.flow.Flow
@@ -20,7 +19,7 @@ class UpdateCurrencyTransactionDataUseCase(private val currencyTransactionReposi
 
             var result = currencyTransactionRepository.updateCurrencyTransactionData(user.accessToken)
             if (result.code == 401) {
-                var refreshTokenResult =
+                val refreshTokenResult =
                     userRepository.refreshToken(user.accessToken, user.refreshToken)
                 if (refreshTokenResult.isSuccessful) {
                     user.accessToken = refreshTokenResult.accessToken!!

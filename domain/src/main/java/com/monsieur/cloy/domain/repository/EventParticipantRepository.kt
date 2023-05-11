@@ -1,6 +1,5 @@
 package com.monsieur.cloy.domain.repository
 
-import com.monsieur.cloy.domain.models.Event
 import com.monsieur.cloy.domain.models.EventParticipant
 import kotlinx.coroutines.flow.Flow
 

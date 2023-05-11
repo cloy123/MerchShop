@@ -6,9 +6,7 @@ import com.monsieur.cloy.data.api.models.requests.OrderItemRequest
 import com.monsieur.cloy.data.mappers.BasketItemMapper
 import com.monsieur.cloy.data.storage.BasketItemStorage
 import com.monsieur.cloy.domain.models.BasketItem
-import com.monsieur.cloy.domain.models.Product
 import com.monsieur.cloy.domain.models.common.CreateOrderResult
-import com.monsieur.cloy.domain.models.common.UpdateProductDataResult
 import com.monsieur.cloy.domain.repository.BasketItemRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map

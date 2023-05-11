@@ -1,6 +1,5 @@
 package com.monsieur.cloy.domain.usecase
 
-import com.monsieur.cloy.domain.models.common.UpdateEventDataResult
 import com.monsieur.cloy.domain.models.common.UpdateOrderDataResult
 import com.monsieur.cloy.domain.repository.OrderItemRepository
 import com.monsieur.cloy.domain.repository.OrderRepository
@@ -24,7 +23,7 @@ class UpdateOrdersDataUseCase(
 
             var result = orderRepository.updateOrderData(user.accessToken)
             if (result.code == 401) {
-                var refreshTokenResult =
+                val refreshTokenResult =
                     userRepository.refreshToken(user.accessToken, user.refreshToken)
                 if (refreshTokenResult.isSuccessful) {
                     user.accessToken = refreshTokenResult.accessToken!!

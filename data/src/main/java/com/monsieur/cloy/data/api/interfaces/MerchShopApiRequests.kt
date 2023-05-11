@@ -1,9 +1,6 @@
 package com.monsieur.cloy.data.api.interfaces
 
-import com.monsieur.cloy.data.api.models.requests.CreateOrderRequest
-import com.monsieur.cloy.data.api.models.requests.LoginRequest
-import com.monsieur.cloy.data.api.models.requests.LogoutRequest
-import com.monsieur.cloy.data.api.models.requests.RefreshTokenRequest
+import com.monsieur.cloy.data.api.models.requests.*
 import com.monsieur.cloy.data.api.models.responses.*
 import retrofit2.Call
 import retrofit2.http.*
@@ -36,4 +33,13 @@ interface MerchShopApiRequests {
 
     @POST("orders/create")
     fun createOrder(@Header("Authorization") authorization: String, @Body createOrderRequest: CreateOrderRequest): Call<CreateOrderResponse>
+
+    @POST("orders/cancelOrder")
+    fun cancelOrder(@Header("Authorization") authorization: String, @Body cancelOrderRequest: CancelOrderRequest): Call<CancelOrderResponse>
+
+    @POST("events/finishEvent")
+    fun finishEvent(@Header("Authorization") authorization: String, @Body finishEventRequest: FinishEventRequest): Call<FinishEventResponse>
+
+    @POST("events/signupEvent")
+    fun signupEvent(@Header("Authorization") authorization: String, @Body signupEventRequest: SignupEventRequest): Call<SignupEventResponse>
 }

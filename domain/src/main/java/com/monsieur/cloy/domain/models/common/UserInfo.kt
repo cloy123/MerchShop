@@ -1,6 +1,5 @@
 package com.monsieur.cloy.domain.models.common
 
-import java.time.LocalDate
 import java.time.LocalDateTime
 
 class UserInfo(

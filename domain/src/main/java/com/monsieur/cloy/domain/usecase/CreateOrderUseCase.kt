@@ -1,7 +1,6 @@
 package com.monsieur.cloy.domain.usecase
 
 import com.monsieur.cloy.domain.models.common.CreateOrderResult
-import com.monsieur.cloy.domain.models.common.UpdateProductDataResult
 import com.monsieur.cloy.domain.repository.BasketItemRepository
 import com.monsieur.cloy.domain.repository.UserRepository
 import kotlinx.coroutines.flow.Flow
@@ -26,7 +25,7 @@ class CreateOrderUseCase(private val userRepository: UserRepository,
 
             var result = basketItemRepository.createOrder(user.accessToken, items)
             if(result.code == 401){
-                var refreshTokenResult = userRepository.refreshToken(user.accessToken, user.refreshToken)
+                val refreshTokenResult = userRepository.refreshToken(user.accessToken, user.refreshToken)
                 if(refreshTokenResult.isSuccessful){
                     user.accessToken = refreshTokenResult.accessToken!!
                     user.refreshToken = refreshTokenResult.refreshToken!!

@@ -1,8 +1,6 @@
 package com.monsieur.cloy.domain.repository
 
-import com.monsieur.cloy.domain.models.CurrencyTransaction
 import com.monsieur.cloy.domain.models.Notification
-import com.monsieur.cloy.domain.models.common.UpdateCurrencyTransactionDataResult
 import com.monsieur.cloy.domain.models.common.UpdateNotificationDataResult
 import kotlinx.coroutines.flow.Flow
 

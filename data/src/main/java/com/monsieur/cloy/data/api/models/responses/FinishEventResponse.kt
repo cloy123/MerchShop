@@ -3,15 +3,12 @@ package com.monsieur.cloy.data.api.models.responses
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-class CreateOrderResponse(
-    @SerializedName("isCreated")
+class FinishEventResponse(
+    @SerializedName("isFinished")
     @Expose
-    var isCreated: Boolean,
+    var isFinished: Boolean,
     @SerializedName("errorMessage")
     @Expose
-    var errorMessage: String,
-    @SerializedName("id")
-    @Expose
-    var id: String
+    var errorMessage: String
 ) {
 }

@@ -1,23 +1,25 @@
 package com.monsieur.cloy.domain.usecase
 
-import com.monsieur.cloy.domain.models.common.UpdateNotificationDataResult
-import com.monsieur.cloy.domain.repository.NotificationRepository
+import com.monsieur.cloy.domain.models.common.SignupEventResult
+import com.monsieur.cloy.domain.repository.EventRepository
 import com.monsieur.cloy.domain.repository.UserRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-class UpdateNotificationDataUseCase(private val notificationRepository: NotificationRepository, private val userRepository: UserRepository
+class SignupEventUseCase (private val userRepository: UserRepository,
+                          private val eventRepository: EventRepository
 ) {
-    suspend fun execute(): Flow<UpdateNotificationDataResult> {
+    suspend fun execute(eventId: String, eventRoleId: String): Flow<SignupEventResult> {
         return flow {
 
             val userList = userRepository.getUser()
             if (userList.isEmpty()) {
-                emit(UpdateNotificationDataResult(null, false, -1))
+                emit(SignupEventResult(false, false, "", -1))
             }
             val user = userList[0]
 
-            var result = notificationRepository.updateNotificationData(user.accessToken)
+
+            var result = eventRepository.signupEvent(user.accessToken, eventId, eventRoleId)
             if (result.code == 401) {
                 val refreshTokenResult =
                     userRepository.refreshToken(user.accessToken, user.refreshToken)
@@ -27,16 +29,13 @@ class UpdateNotificationDataUseCase(private val notificationRepository: Notifica
                     userRepository.updateUser(user)
                 } else if (refreshTokenResult.code == 401) {
                     userRepository.deleteUser()
-                    emit(UpdateNotificationDataResult(null, false, 401))
+                    emit(SignupEventResult(false, false, "", 401))
                 } else {
-                    emit(UpdateNotificationDataResult(null, false, -1))
+                    emit(SignupEventResult(false, false, "", -1))
                 }
             }
-            result = notificationRepository.updateNotificationData(user.accessToken)
-            if (result.notifications != null) {
-                notificationRepository.deleteAllData()
-                notificationRepository.insertNotifications(result.notifications!!)
-            }
+            result = eventRepository.signupEvent(user.accessToken, eventId, eventRoleId)
+
             emit(result)
         }
     }

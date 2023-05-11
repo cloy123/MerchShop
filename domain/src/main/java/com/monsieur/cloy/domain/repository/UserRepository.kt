@@ -24,4 +24,6 @@ interface UserRepository {
     suspend fun getUser(): List<User>
 
     suspend fun refreshToken(accessToken: String, refreshToken: String): RefreshTokenResult
+
+    suspend fun logout(accessToken: String, refreshToken: String)
 }

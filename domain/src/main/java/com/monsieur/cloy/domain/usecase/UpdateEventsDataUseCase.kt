@@ -1,7 +1,6 @@
 package com.monsieur.cloy.domain.usecase
 
 import com.monsieur.cloy.domain.models.common.UpdateEventDataResult
-import com.monsieur.cloy.domain.models.common.UpdateProductDataResult
 import com.monsieur.cloy.domain.repository.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -24,7 +23,7 @@ class UpdateEventsDataUseCase(
 
             var result = eventRepository.updateEventData(user.accessToken)
             if (result.code == 401) {
-                var refreshTokenResult =
+                val refreshTokenResult =
                     userRepository.refreshToken(user.accessToken, user.refreshToken)
                 if (refreshTokenResult.isSuccessful) {
                     user.accessToken = refreshTokenResult.accessToken!!

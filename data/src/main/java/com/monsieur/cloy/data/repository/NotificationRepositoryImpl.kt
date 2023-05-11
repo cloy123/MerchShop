@@ -3,9 +3,7 @@ package com.monsieur.cloy.data.repository
 import com.monsieur.cloy.data.api.MerchShopApi
 import com.monsieur.cloy.data.mappers.NotificationMapper
 import com.monsieur.cloy.data.storage.NotificationStorage
-import com.monsieur.cloy.domain.models.CurrencyTransaction
 import com.monsieur.cloy.domain.models.Notification
-import com.monsieur.cloy.domain.models.common.UpdateCurrencyTransactionDataResult
 import com.monsieur.cloy.domain.models.common.UpdateNotificationDataResult
 import com.monsieur.cloy.domain.repository.NotificationRepository
 import kotlinx.coroutines.flow.Flow

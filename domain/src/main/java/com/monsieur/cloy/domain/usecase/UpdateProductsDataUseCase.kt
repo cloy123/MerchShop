@@ -21,7 +21,7 @@ class UpdateProductsDataUseCase(
 
             var result = productRepository.updateProductData(user.accessToken)
             if(result.code == 401){
-                var refreshTokenResult = userRepository.refreshToken(user.accessToken, user.refreshToken)
+                val refreshTokenResult = userRepository.refreshToken(user.accessToken, user.refreshToken)
                 if(refreshTokenResult.isSuccessful){
                     user.accessToken = refreshTokenResult.accessToken!!
                     user.refreshToken = refreshTokenResult.refreshToken!!

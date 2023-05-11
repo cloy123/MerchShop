@@ -4,9 +4,7 @@ import com.monsieur.cloy.data.api.MerchShopApi
 import com.monsieur.cloy.data.mappers.CurrencyTransactionMapper
 import com.monsieur.cloy.data.storage.CurrencyTransactionStorage
 import com.monsieur.cloy.domain.models.CurrencyTransaction
-import com.monsieur.cloy.domain.models.Product
 import com.monsieur.cloy.domain.models.common.UpdateCurrencyTransactionDataResult
-import com.monsieur.cloy.domain.models.common.UpdateProductDataResult
 import com.monsieur.cloy.domain.repository.CurrencyTransactionRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map

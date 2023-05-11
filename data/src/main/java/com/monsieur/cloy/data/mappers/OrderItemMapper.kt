@@ -1,14 +1,11 @@
 package com.monsieur.cloy.data.mappers
 
-import com.monsieur.cloy.data.api.models.OrderDto
 import com.monsieur.cloy.data.api.models.OrderItemDto
 import com.monsieur.cloy.data.storage.models.OrderItemEntity
 import com.monsieur.cloy.data.storage.models.OrderItemWithProductAndOrder
 import com.monsieur.cloy.domain.models.Order
 import com.monsieur.cloy.domain.models.OrderItem
 import com.monsieur.cloy.domain.models.Product
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 
 class OrderItemMapper {
     fun toDomainModel(orderItemWithProductAndOrder: OrderItemWithProductAndOrder): OrderItem {

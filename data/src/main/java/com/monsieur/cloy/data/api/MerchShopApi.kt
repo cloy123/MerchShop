@@ -2,10 +2,7 @@ package com.monsieur.cloy.data.api
 
 import com.google.gson.GsonBuilder
 import com.monsieur.cloy.data.api.interfaces.MerchShopApiRequests
-import com.monsieur.cloy.data.api.models.requests.CreateOrderRequest
-import com.monsieur.cloy.data.api.models.requests.LoginRequest
-import com.monsieur.cloy.data.api.models.requests.LogoutRequest
-import com.monsieur.cloy.data.api.models.requests.RefreshTokenRequest
+import com.monsieur.cloy.data.api.models.requests.*
 import com.monsieur.cloy.data.api.models.responses.*
 import okhttp3.OkHttpClient
 import retrofit2.Response
@@ -16,7 +13,6 @@ import java.security.SecureRandom
 import java.security.cert.CertificateException
 import java.security.cert.X509Certificate
 import javax.net.ssl.*
-
 
 class MerchShopApi {
     private val okHttpClient: OkHttpClient = getUnsafeOkHttpClient()
@@ -94,14 +90,25 @@ class MerchShopApi {
         val response = merchShopApiRequests.createOrder("Bearer $token", createOrderRequest)
         return response.execute()
     }
+
+    fun cancelOrder(token: String, cancelOrderRequest: CancelOrderRequest): Response<CancelOrderResponse>{
+        val merchShopApiRequests = retrofit.create(MerchShopApiRequests::class.java)
+        val response = merchShopApiRequests.cancelOrder("Bearer $token", cancelOrderRequest)
+        return response.execute()
+    }
+
+    fun finishEvent(token: String, finishEventRequest: FinishEventRequest): Response<FinishEventResponse>{
+        val merchShopApiRequests = retrofit.create(MerchShopApiRequests::class.java)
+        val response = merchShopApiRequests.finishEvent("Bearer $token", finishEventRequest)
+        return response.execute()
+    }
+
+    fun signupEvent(token: String, signupEventRequest: SignupEventRequest): Response<SignupEventResponse>{
+        val merchShopApiRequests = retrofit.create(MerchShopApiRequests::class.java)
+        val response = merchShopApiRequests.signupEvent("Bearer $token", signupEventRequest)
+        return response.execute()
+    }
 }
-
-
-
-
-
-
-
 
 private fun getUnsafeOkHttpClient(): OkHttpClient {
     return try {
