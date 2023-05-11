@@ -5,9 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import com.monsieur.cloy.merchshop.R
 import com.monsieur.cloy.merchshop.databinding.FragmentEventsBinding
+import com.monsieur.cloy.merchshop.presentation.catalog.ProductRecyclerAdapter
 import com.monsieur.cloy.merchshop.presentation.viewModels.MainViewModel
+import com.monsieur.cloy.merchshop.utilits.changeToolBar
+import com.monsieur.cloy.merchshop.utilits.replaceFragment
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class EventsFragment : Fragment() {
@@ -29,7 +33,22 @@ class EventsFragment : Fragment() {
     }
 
     private fun initFunc() {
-
+        initRecyclerAdapter()
     }
 
+    override fun onStart() {
+        super.onStart()
+        changeToolBar(menu = false, homeButton = false, "События")
+    }
+
+    private fun initRecyclerAdapter(){
+        recyclerAdapter = EventRecyclerAdapter(requireContext())
+        recyclerAdapter.setOnClickListener {
+            replaceFragment(EventFragment(it))
+        }
+        binding.eventsRecycler.adapter = recyclerAdapter
+        viewModel.events.observe(requireActivity(), Observer {
+            recyclerAdapter.setItems(it)
+        })
+    }
 }

@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.monsieur.cloy.domain.models.Event
 import com.monsieur.cloy.domain.models.Product
 import com.monsieur.cloy.domain.models.User
 import com.monsieur.cloy.domain.models.common.LoginParam
@@ -15,6 +16,7 @@ import com.monsieur.cloy.merchshop.presentation.catalog.FiltersSettings
 import com.monsieur.cloy.merchshop.presentation.catalog.Sort
 import com.monsieur.cloy.merchshop.utilits.calculatePrice
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
@@ -60,6 +62,8 @@ class MainViewModel(
 
     val filteredProducts = MutableLiveData<List<List<Product>>>()
 
+    val events = MutableLiveData<List<Event>>()
+
     var filtersSettings: FiltersSettings =
         FiltersSettings(Sort.ByName, 0, 99999999, ArrayList(), ArrayList())
         private set
@@ -80,6 +84,11 @@ class MainViewModel(
                 }else{
                     user.postValue(it[0])
                 }
+            }
+        }
+        viewModelScope.launch(Dispatchers.Default) {
+            getEventsUseCase.execute().collect{
+                events.postValue(it as ArrayList)
             }
         }
     }
