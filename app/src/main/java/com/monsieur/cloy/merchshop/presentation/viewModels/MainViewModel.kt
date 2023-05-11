@@ -9,17 +9,12 @@ import com.monsieur.cloy.domain.models.User
 import com.monsieur.cloy.domain.models.common.LoginParam
 import com.monsieur.cloy.domain.models.common.LoginResult
 import com.monsieur.cloy.domain.models.common.UpdateProductDataResult
-import com.monsieur.cloy.domain.usecase.GetProductsUseCase
-import com.monsieur.cloy.domain.usecase.GetUserUseCase
-import com.monsieur.cloy.domain.usecase.LoginUseCase
-import com.monsieur.cloy.domain.usecase.UpdateProductsDataUseCase
+import com.monsieur.cloy.domain.usecase.*
 import com.monsieur.cloy.merchshop.presentation.catalog.Color
 import com.monsieur.cloy.merchshop.presentation.catalog.FiltersSettings
 import com.monsieur.cloy.merchshop.presentation.catalog.Sort
 import com.monsieur.cloy.merchshop.utilits.calculatePrice
-import com.monsieur.cloy.merchshop.utilits.showToast
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
@@ -28,8 +23,30 @@ class MainViewModel(
     private val getProductsUseCase: GetProductsUseCase,
     private val getUserUseCase: GetUserUseCase,
     private val loginUseCase: LoginUseCase,
-    private val updateProductsDataUseCase: UpdateProductsDataUseCase
-) : AndroidViewModel(application)  {
+    private val updateProductsDataUseCase: UpdateProductsDataUseCase,
+    private val cancelOrderUseCase: CancelOrderUseCase,
+    private val createBasketItemUseCase: CreateBasketItemUseCase,
+    private val createOrderUseCase: CreateOrderUseCase,
+    private val deleteBasketItemUseCase: DeleteBasketItemUseCase,
+    private val finishEventUseCase: FinishEventUseCase,
+    private val getBasketItemsUseCase: GetBasketItemsUseCase,
+    private val getCurrencyTransactionsUseCase: GetCurrencyTransactionsUseCase,
+    private val getEventParticipantsUseCase: GetEventParticipantsUseCase,
+    private val getEventResponsibleUseCase: GetEventResponsibleUseCase,
+    private val getEventRolesUseCase: GetEventRolesUseCase,
+    private val getEventsUseCase: GetEventsUseCase,
+    private val getNotificationsUseCase: GetNotificationsUseCase,
+    private val getOrderItemsUseCase: GetOrderItemsUseCase,
+    private val logoutUseCase: LogoutUseCase,
+    private val signupEventUseCase: SignupEventUseCase,
+    private val updateCurrencyTransactionDataUseCase: UpdateCurrencyTransactionDataUseCase,
+    private val updateEventsDataUseCase: UpdateEventsDataUseCase,
+    private val updateNotificationDataUseCase: UpdateNotificationDataUseCase,
+    private val updateOrdersDataUseCase: UpdateOrdersDataUseCase,
+    private val updateUserDataUseCase: UpdateUserDataUseCase,
+    private val getOrdersUseCase: GetOrdersUseCase
+
+    ) : AndroidViewModel(application)  {
 
     val loginResult = MutableLiveData<LoginResult?>()
 

@@ -12,7 +12,28 @@ val appModule = module {
             getProductsUseCase = get(),
             getUserUseCase = get(),
             loginUseCase = get(),
-            updateProductsDataUseCase = get()
+            updateProductsDataUseCase = get(),
+            cancelOrderUseCase = get(),
+            createBasketItemUseCase = get(),
+            createOrderUseCase = get(),
+            deleteBasketItemUseCase = get(),
+            finishEventUseCase = get(),
+            getBasketItemsUseCase = get(),
+            getCurrencyTransactionsUseCase = get(),
+            getEventParticipantsUseCase = get(),
+            getEventResponsibleUseCase = get(),
+            getEventRolesUseCase = get(),
+            getEventsUseCase = get(),
+            getNotificationsUseCase = get(),
+            getOrderItemsUseCase = get(),
+            logoutUseCase = get(),
+            signupEventUseCase = get(),
+            updateCurrencyTransactionDataUseCase = get(),
+            updateEventsDataUseCase = get(),
+            updateNotificationDataUseCase = get(),
+            updateOrdersDataUseCase = get(),
+            updateUserDataUseCase = get(),
+            getOrdersUseCase = get()
         )
     }
 }

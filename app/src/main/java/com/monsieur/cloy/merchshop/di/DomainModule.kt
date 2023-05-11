@@ -1,9 +1,6 @@
 package com.monsieur.cloy.merchshop.di
 
-import com.monsieur.cloy.domain.usecase.GetProductsUseCase
-import com.monsieur.cloy.domain.usecase.GetUserUseCase
-import com.monsieur.cloy.domain.usecase.LoginUseCase
-import com.monsieur.cloy.domain.usecase.UpdateProductsDataUseCase
+import com.monsieur.cloy.domain.usecase.*
 import org.koin.dsl.module
 
 val domainModule = module {
@@ -18,5 +15,68 @@ val domainModule = module {
     }
     factory<UpdateProductsDataUseCase> {
         UpdateProductsDataUseCase(productRepository = get(), userRepository = get())
+    }
+    factory<CancelOrderUseCase>{
+        CancelOrderUseCase(userRepository = get(), orderRepository = get())
+    }
+    factory<CreateBasketItemUseCase>{
+        CreateBasketItemUseCase(basketItemRepository = get())
+    }
+    factory<CreateOrderUseCase>{
+        CreateOrderUseCase(userRepository = get(), basketItemRepository = get())
+    }
+    factory<DeleteBasketItemUseCase>{
+        DeleteBasketItemUseCase(basketItemRepository = get())
+    }
+    factory<FinishEventUseCase>{
+        FinishEventUseCase(userRepository = get(), eventRepository = get())
+    }
+    factory<GetBasketItemsUseCase>{
+        GetBasketItemsUseCase(basketItemRepository = get())
+    }
+    factory<GetCurrencyTransactionsUseCase>{
+        GetCurrencyTransactionsUseCase(currencyTransactionRepository = get())
+    }
+    factory<GetEventParticipantsUseCase>{
+        GetEventParticipantsUseCase(eventParticipantRepository = get())
+    }
+    factory<GetEventResponsibleUseCase>{
+        GetEventResponsibleUseCase(eventResponsibleRepository = get())
+    }
+    factory<GetEventRolesUseCase>{
+        GetEventRolesUseCase(eventRoleRepository = get())
+    }
+    factory<GetEventsUseCase>{
+        GetEventsUseCase(eventRepository = get())
+    }
+    factory<GetNotificationsUseCase>{
+        GetNotificationsUseCase(notificationRepository = get())
+    }
+    factory<GetOrderItemsUseCase>{
+        GetOrderItemsUseCase(orderItemRepository = get())
+    }
+    factory<LogoutUseCase>{
+        LogoutUseCase(userRepository = get())
+    }
+    factory<SignupEventUseCase>{
+        SignupEventUseCase(userRepository = get(), eventRepository = get())
+    }
+    factory<UpdateCurrencyTransactionDataUseCase>{
+        UpdateCurrencyTransactionDataUseCase(userRepository = get(), currencyTransactionRepository = get())
+    }
+    factory<UpdateEventsDataUseCase>{
+        UpdateEventsDataUseCase(userRepository = get(), eventRepository = get(), eventRoleRepository = get(), eventResponsibleRepository = get(), eventParticipantRepository = get())
+    }
+    factory<UpdateNotificationDataUseCase>{
+        UpdateNotificationDataUseCase(userRepository = get(), notificationRepository = get())
+    }
+    factory<UpdateOrdersDataUseCase>{
+        UpdateOrdersDataUseCase(userRepository = get(), orderItemRepository = get(), orderRepository = get())
+    }
+    factory<UpdateUserDataUseCase>{
+        UpdateUserDataUseCase(userRepository = get())
+    }
+    factory<GetOrdersUseCase>{
+        GetOrdersUseCase(orderRepository = get())
     }
 }

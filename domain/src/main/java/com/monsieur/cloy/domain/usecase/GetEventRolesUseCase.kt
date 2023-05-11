@@ -4,7 +4,7 @@ import com.monsieur.cloy.domain.models.EventRole
 import com.monsieur.cloy.domain.repository.EventRoleRepository
 import kotlinx.coroutines.flow.Flow
 
-class GetEventRoleUseCase (private val eventRoleRepository: EventRoleRepository) {
+class GetEventRolesUseCase (private val eventRoleRepository: EventRoleRepository) {
     fun execute(): Flow<List<EventRole>> {
         return eventRoleRepository.getEventRolesFlow()
     }
