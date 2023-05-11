@@ -5,16 +5,61 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import com.monsieur.cloy.domain.models.Event
 import com.monsieur.cloy.merchshop.R
+import com.monsieur.cloy.merchshop.databinding.FragmentEventBinding
+import com.monsieur.cloy.merchshop.databinding.FragmentFinishEventBinding
+import com.monsieur.cloy.merchshop.presentation.viewModels.MainViewModel
+import com.monsieur.cloy.merchshop.utilits.backButton
+import com.monsieur.cloy.merchshop.utilits.showToast
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class FinishEventFragment(val event: Event) : Fragment() {
+
+    private var _binding: FragmentFinishEventBinding? = null
+    private val binding get() = _binding!!
+    private val viewModel: MainViewModel by sharedViewModel()
+
+    private lateinit var finishParticipantRecyclerAdapter: FinishParticipantRecyclerAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_finish_event, container, false)
+        _binding = FragmentFinishEventBinding.inflate(inflater, container, false)
+        initFunc()
+        return binding.root
     }
+
+    fun initFunc(){
+
+        viewModel.finishEventResult.observe(requireActivity(), Observer {
+            if(it != null){
+                if(!it.isSuccessful){
+                    showToast("Ошибка")
+                }else if(it.isFinished){
+                    showToast("Участвующие отмечены")
+                    backButton()
+                }else if(!it.isFinished){
+                    showToast(it.errorMessage)
+                }
+            }
+        })
+
+        binding.btFinish.setOnClickListener {
+            viewModel.finishEvent(event, finishParticipantRecyclerAdapter.participants!!)
+        }
+        initRecyclerParticipants()
+        viewModel.eventParticipants.observe(requireActivity(), Observer {
+            val participant = it.filter { it.eventId == event.id } as ArrayList
+            finishParticipantRecyclerAdapter.setItems(participant)
+        })
+    }
+
+    fun initRecyclerParticipants(){
+        finishParticipantRecyclerAdapter = FinishParticipantRecyclerAdapter(requireContext())
+        binding.participantsRecycler.adapter = finishParticipantRecyclerAdapter
+    }
+
 }
