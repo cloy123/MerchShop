@@ -4,12 +4,8 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.monsieur.cloy.domain.models.Event
-import com.monsieur.cloy.domain.models.Product
-import com.monsieur.cloy.domain.models.User
-import com.monsieur.cloy.domain.models.common.LoginParam
-import com.monsieur.cloy.domain.models.common.LoginResult
-import com.monsieur.cloy.domain.models.common.UpdateProductDataResult
+import com.monsieur.cloy.domain.models.*
+import com.monsieur.cloy.domain.models.common.*
 import com.monsieur.cloy.domain.usecase.*
 import com.monsieur.cloy.merchshop.presentation.catalog.Color
 import com.monsieur.cloy.merchshop.presentation.catalog.FiltersSettings
@@ -64,11 +60,22 @@ class MainViewModel(
 
     val events = MutableLiveData<List<Event>>()
 
+    val eventRoles = MutableLiveData<List<EventRole>>()
+
+    val eventResponsibles = MutableLiveData<List<EventResponsible>>()
+
+    val eventParticipants = MutableLiveData<List<EventParticipant>>()
+
     var filtersSettings: FiltersSettings =
         FiltersSettings(Sort.ByName, 0, 99999999, ArrayList(), ArrayList())
         private set
 
     val user = MutableLiveData<User?>()
+
+    var userData: User? = null
+
+    val signupResult = MutableLiveData<SignupEventResult?>()
+    val finishEventResult = MutableLiveData<FinishEventResult?>()
 
     init {
         viewModelScope.launch(Dispatchers.Default) {
@@ -81,14 +88,31 @@ class MainViewModel(
             getUserUseCase.execute().collect{
                 if(it.isEmpty()){
                     user.postValue(null)
+                    userData = null
                 }else{
                     user.postValue(it[0])
+                    userData = it[0]
                 }
             }
         }
         viewModelScope.launch(Dispatchers.Default) {
             getEventsUseCase.execute().collect{
                 events.postValue(it as ArrayList)
+            }
+        }
+        viewModelScope.launch(Dispatchers.Default) {
+            getEventParticipantsUseCase.execute().collect{
+                eventParticipants.postValue(it as ArrayList)
+            }
+        }
+        viewModelScope.launch(Dispatchers.Default) {
+            getEventRolesUseCase.execute().collect{
+                eventRoles.postValue(it as ArrayList)
+            }
+        }
+        viewModelScope.launch(Dispatchers.Default) {
+            getEventResponsibleUseCase.execute().collect{
+                eventResponsibles.postValue(it as ArrayList)
             }
         }
     }
@@ -186,6 +210,24 @@ class MainViewModel(
         viewModelScope.launch(Dispatchers.Default){
             loginUseCase.execute(LoginParam(email, password)).first {
                 loginResult.postValue(it)
+                true
+            }
+        }
+    }
+
+    fun signupEvent(event: Event, role: EventRole){
+        viewModelScope.launch(Dispatchers.Default) {
+            signupEventUseCase.execute(event.id, role.id).first {
+                signupResult.postValue(it)
+                true
+            }
+        }
+    }
+
+    fun finishEvent(event: Event, eventParticipants: List<EventParticipant>){
+        viewModelScope.launch(Dispatchers.Default) {
+            finishEventUseCase.execute(event.id, eventParticipants).first {
+                finishEventResult.postValue(it)
                 true
             }
         }
