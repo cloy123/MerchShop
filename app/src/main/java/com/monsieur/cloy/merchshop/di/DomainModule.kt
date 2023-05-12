@@ -76,7 +76,4 @@ val domainModule = module {
     factory<UpdateUserDataUseCase>{
         UpdateUserDataUseCase(userRepository = get())
     }
-    factory<GetOrdersUseCase>{
-        GetOrdersUseCase(orderRepository = get())
-    }
 }

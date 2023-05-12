@@ -32,8 +32,7 @@ val appModule = module {
             updateEventsDataUseCase = get(),
             updateNotificationDataUseCase = get(),
             updateOrdersDataUseCase = get(),
-            updateUserDataUseCase = get(),
-            getOrdersUseCase = get()
+            updateUserDataUseCase = get()
         )
     }
 }

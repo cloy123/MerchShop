@@ -17,8 +17,6 @@ import com.monsieur.cloy.merchshop.R
 import com.monsieur.cloy.merchshop.databinding.FragmentCatalogBinding
 import com.monsieur.cloy.merchshop.presentation.viewModels.MainViewModel
 import com.monsieur.cloy.merchshop.utilits.changeToolBar
-import com.monsieur.cloy.merchshop.utilits.replaceFragment
-import com.monsieur.cloy.merchshop.utilits.showToast
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class CatalogFragment : Fragment() {
@@ -39,8 +37,8 @@ class CatalogFragment : Fragment() {
     private lateinit var typesRecycler: RecyclerView
     private lateinit var colorsRecycler: RecyclerView
     private lateinit var applyFilters: Button
-//    private lateinit var typesAdapter: FilterRecyclerAdapter
-//    private lateinit var firmsAdapter: FilterRecyclerAdapter
+    private lateinit var typesAdapter: ProductTypesRecyclerAdapter
+    private lateinit var colorsAdapter: ProductColorsRecyclerAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -62,8 +60,8 @@ class CatalogFragment : Fragment() {
         typesRecycler = filters.findViewById(R.id.types_recycler)
         colorsRecycler = filters.findViewById(R.id.colors_recycler)
         applyFilters = filters.findViewById(R.id.apply)
-//        initTypesRecyclerAdapter()
-//        initFirmsRecyclerAdapter()
+        initTypesRecyclerAdapter()
+        initColorsRecyclerAdapter()
         closeFilters.setOnClickListener {
             binding.drawerLayout.closeDrawer(Gravity.END)
         }
@@ -72,38 +70,32 @@ class CatalogFragment : Fragment() {
         }
         applyFilters.setOnClickListener {
             binding.drawerLayout.closeDrawer(Gravity.END)
-//            applyFilters()
+            applyFilters()
         }
         clearPrice.setOnClickListener {
             fromPrice.setText("")
             untilPrice.setText("")
         }
 
-//        clearFirms.setOnClickListener {
-//            firmsAdapter?.clearChecked()
-//        }
-//        clearTypes.setOnClickListener {
-//            typesAdapter?.clearChecked()
-//        }
+        clearColors.setOnClickListener {
+            colorsAdapter?.clearChecked()
+        }
+        clearTypes.setOnClickListener {
+            typesAdapter?.clearChecked()
+        }
         binding.sortType.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 val currentFiltersSettings = viewModel.filtersSettings
                 currentFiltersSettings.sortBy = when(binding.sortType.selectedItemId.toInt()){
-                    0 -> Sort.ByName
-                    1 -> Sort.ByPriceDescending
-                    2 -> Sort.ByPriceAscending
+                    0 -> Sort.ByPriceDescending
+                    1 -> Sort.ByPriceAscending
+                    2 -> Sort.ByName
                     else -> Sort.ByName
                 }
                 viewModel.setFilters(currentFiltersSettings)
             }
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
-
-        viewModel.updateProductDataResult.observe(requireActivity(), Observer {
-            if(it != null && it.products == null){
-                showToast("Ошибка при обновлении данных")
-            }
-        })
 
         viewModel.updateProductData()
 
@@ -123,58 +115,57 @@ class CatalogFragment : Fragment() {
 
     @SuppressLint("SetTextI18n")
     private fun applyFilters(){
-//        val listTypes = typesAdapter.getCheckedTypes()
-//        val listFirms = firmsAdapter.getCheckedFirms()
-//        val listTypesId = ArrayList<Int>()
-//        val listFirmsId = ArrayList<Int>()
-//        if(listTypes.isEmpty()){
-//            typesAdapter.getCheckedTypes().forEach { listTypesId.add(it.id) }
-//        }else{
-//            listTypes.forEach { listTypesId.add(it.id) }
-//        }
-//        if(listFirms.isEmpty()){
-//            firmsAdapter.getCheckedFirms().forEach { listFirmsId.add(it.id) }
-//        }else{
-//            listFirms.forEach { listFirmsId.add(it.id) }
-//        }
-//
-//        val from = if(fromPrice.text.isEmpty()){
-//            0
-//        }else{
-//            fromPrice.text.toString().toInt()
-//        }
-//
-//        val to = if(untilPrice.text.isEmpty()){
-//            99999999
-//        }else{
-//            untilPrice.text.toString().toInt()
-//        }
-//        val sortBy = when(binding.sortType.selectedItemId.toInt()){
-//            0 -> Sort.ByPopularity
-//            1 -> Sort.ByPriceDescending
-//            2 -> Sort.ByPriceAscending
-//            3 -> Sort.ByName
-//            else -> Sort.ByPopularity
-//        }
-//        viewModel.setFilters(FiltersSettings(sortBy, from, to, listFirmsId, listTypesId))
+        val listTypes = typesAdapter.getCheckedTypes()
+        val listColor = colorsAdapter.getCheckedColors()
+        val listTypeNames = ArrayList<String>()
+        val listColorNames = ArrayList<String>()
+        if(listTypes.isEmpty()){
+            typesAdapter.getCheckedTypes().forEach { listTypeNames.add(it.name) }
+        }else{
+            listTypes.forEach { listTypeNames.add(it.name) }
+        }
+        if(listColor.isEmpty()){
+            colorsAdapter.getCheckedColors().forEach { listColorNames.add(it.colorName) }
+        }else{
+            listColor.forEach { listColorNames.add(it.colorName) }
+        }
+
+        val from = if(fromPrice.text.isEmpty()){
+            0
+        }else{
+            fromPrice.text.toString().toInt()
+        }
+
+        val to = if(untilPrice.text.isEmpty()){
+            99999999
+        }else{
+            untilPrice.text.toString().toInt()
+        }
+        val sortBy = when(binding.sortType.selectedItemId.toInt()){
+            0 -> Sort.ByName
+            1 -> Sort.ByPriceDescending
+            2 -> Sort.ByPriceAscending
+            else -> Sort.ByName
+        }
+        viewModel.setFilters(FiltersSettings(sortBy, from, to, listColorNames, listTypeNames))
         viewModel.setFilters(FiltersSettings(Sort.ByName, 0, 99999, ArrayList(), ArrayList()))
     }
-//
-//    private fun initTypesRecyclerAdapter(){
-//        typesAdapter = FilterRecyclerAdapter()
-//        typesRecycler.adapter = typesAdapter
-//        viewModel.allProductTypes.observe(requireActivity(), Observer {
-//            typesAdapter.setTypes(it as ArrayList)
-//        })
-//    }
-//
-//    private fun initFirmsRecyclerAdapter(){
-//        firmsAdapter = FilterRecyclerAdapter()
-//        firmsRecycler.adapter = firmsAdapter
-//        viewModel.allFirms.observe(requireActivity(), Observer {
-//            firmsAdapter.setFirms(it as ArrayList)
-//        })
-//    }
+
+    private fun initTypesRecyclerAdapter(){
+        typesAdapter = ProductTypesRecyclerAdapter()
+        typesRecycler.adapter = typesAdapter
+        viewModel.types.observe(requireActivity(), Observer {
+            typesAdapter.setTypes(it.map { ProductType(it, false) } as ArrayList)
+        })
+    }
+
+    private fun initColorsRecyclerAdapter(){
+        colorsAdapter = ProductColorsRecyclerAdapter()
+        colorsRecycler.adapter = colorsAdapter
+        viewModel.colors.observe(requireActivity(), Observer {
+            colorsAdapter.setColors(it as ArrayList)
+        })
+    }
 
     private fun initRecyclerAdapter(){
         recyclerAdapter = ProductRecyclerAdapter(requireContext())

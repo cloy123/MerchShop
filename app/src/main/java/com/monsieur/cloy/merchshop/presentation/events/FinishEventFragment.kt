@@ -7,8 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import com.monsieur.cloy.domain.models.Event
-import com.monsieur.cloy.merchshop.R
-import com.monsieur.cloy.merchshop.databinding.FragmentEventBinding
 import com.monsieur.cloy.merchshop.databinding.FragmentFinishEventBinding
 import com.monsieur.cloy.merchshop.presentation.viewModels.MainViewModel
 import com.monsieur.cloy.merchshop.utilits.backButton

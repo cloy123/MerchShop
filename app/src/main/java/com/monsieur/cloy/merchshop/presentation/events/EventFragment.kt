@@ -8,10 +8,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.lifecycle.Observer
 import com.monsieur.cloy.domain.models.Event
-import com.monsieur.cloy.domain.models.EventParticipant
-import com.monsieur.cloy.domain.models.EventResponsible
 import com.monsieur.cloy.domain.models.EventRole
-import com.monsieur.cloy.merchshop.R
 import com.monsieur.cloy.merchshop.databinding.FragmentEventBinding
 import com.monsieur.cloy.merchshop.presentation.viewModels.MainViewModel
 import com.monsieur.cloy.merchshop.utilits.backButton

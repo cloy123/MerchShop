@@ -11,8 +11,8 @@ import com.monsieur.cloy.merchshop.presentation.catalog.Color
 import com.monsieur.cloy.merchshop.presentation.catalog.FiltersSettings
 import com.monsieur.cloy.merchshop.presentation.catalog.Sort
 import com.monsieur.cloy.merchshop.utilits.calculatePrice
+import com.monsieur.cloy.merchshop.utilits.showToast
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
@@ -41,18 +41,19 @@ class MainViewModel(
     private val updateEventsDataUseCase: UpdateEventsDataUseCase,
     private val updateNotificationDataUseCase: UpdateNotificationDataUseCase,
     private val updateOrdersDataUseCase: UpdateOrdersDataUseCase,
-    private val updateUserDataUseCase: UpdateUserDataUseCase,
-    private val getOrdersUseCase: GetOrdersUseCase
+    private val updateUserDataUseCase: UpdateUserDataUseCase
 
-    ) : AndroidViewModel(application)  {
+) : AndroidViewModel(application) {
 
     val loginResult = MutableLiveData<LoginResult?>()
 
-    val updateProductDataResult = MutableLiveData<UpdateProductDataResult?>()
-
-    val updateEventsDataResult = MutableLiveData<UpdateEventDataResult?>()
-
     val createOrderResult = MutableLiveData<CreateOrderResult?>()
+
+    val cancelOrderResult = MutableLiveData<CancelOrderResult?>()
+
+    val orderItems = MutableLiveData<List<OrderItem>>()
+
+    val currencyTransactions = MutableLiveData<List<CurrencyTransaction>>()
 
     var products = ArrayList<Product>()
 
@@ -91,39 +92,49 @@ class MainViewModel(
             }
         }
         viewModelScope.launch(Dispatchers.Default) {
-            getUserUseCase.execute().collect{
-                if(it.isEmpty()){
+            getUserUseCase.execute().collect {
+                if (it.isEmpty()) {
                     user.postValue(null)
                     userData = null
-                }else{
+                } else {
                     user.postValue(it[0])
                     userData = it[0]
                 }
             }
         }
         viewModelScope.launch(Dispatchers.Default) {
-            getEventsUseCase.execute().collect{
+            getEventsUseCase.execute().collect {
                 events.postValue(it as ArrayList)
             }
         }
         viewModelScope.launch(Dispatchers.Default) {
-            getEventParticipantsUseCase.execute().collect{
+            getEventParticipantsUseCase.execute().collect {
                 eventParticipants.postValue(it as ArrayList)
             }
         }
         viewModelScope.launch(Dispatchers.Default) {
-            getEventRolesUseCase.execute().collect{
+            getEventRolesUseCase.execute().collect {
                 eventRoles.postValue(it as ArrayList)
             }
         }
         viewModelScope.launch(Dispatchers.Default) {
-            getEventResponsibleUseCase.execute().collect{
+            getEventResponsibleUseCase.execute().collect {
                 eventResponsibles.postValue(it as ArrayList)
             }
         }
         viewModelScope.launch(Dispatchers.Default) {
-            getBasketItemsUseCase.execute().collect{
+            getBasketItemsUseCase.execute().collect {
                 basketItems.postValue(it as ArrayList)
+            }
+        }
+        viewModelScope.launch(Dispatchers.Default) {
+            getOrderItemsUseCase.execute().collect {
+                orderItems.postValue(it as ArrayList)
+            }
+        }
+        viewModelScope.launch(Dispatchers.Default) {
+            getCurrencyTransactionsUseCase.execute().collect {
+                currencyTransactions.postValue(it as ArrayList)
             }
         }
     }
@@ -142,25 +153,25 @@ class MainViewModel(
             return ArrayList()
         } else {
             val newTypes = ArrayList<String>()
-            val newColors = ArrayList<Color>()
+            val newColors = ArrayList<String>()
 
             var list = products.filter { product ->
                 product.showInCatalog
             }
 
-            var result = ArrayList<List<Product>>()
+            val result = ArrayList<List<Product>>()
 
             val recurringProducts = ArrayList<Product>()
-            for(product in list){
-                if(!newTypes.contains(product.typeName)){
+            for (product in list) {
+                if (!newTypes.contains(product.typeName)) {
                     newTypes.add(product.typeName)
                 }
-                val color = Color(product.colorName, product.colorValue)
-                if(!newColors.contains(color)){
-                    newColors.add(color)
+                val color = Color(product.colorName, false)
+                if (!newColors.contains(color.colorName)) {
+                    newColors.add(color.colorName)
                 }
 
-                if(recurringProducts.find { it.colorName == product.colorName && it.typeName == product.typeName } == null){
+                if (recurringProducts.find { it.colorName == product.colorName && it.typeName == product.typeName } == null) {
                     recurringProducts.addAll(list.filter { p ->
                         p.colorName == product.colorName && p.typeName == product.typeName
                                 && p != product
@@ -184,7 +195,7 @@ class MainViewModel(
             }
             if (filtersSettings.listColors.isNotEmpty()) {
                 list = list.filter { p ->
-                    filtersSettings.listColors.contains(Color(p.colorName, p.colorValue))
+                    filtersSettings.listColors.contains(p.colorName)
                 }
             }
 
@@ -204,7 +215,7 @@ class MainViewModel(
                 }
             }
 
-            for(p in list){
+            for (p in list) {
                 var r = ArrayList<Product>()
                 r.add(p)
                 r.addAll(recurringProducts.filter {
@@ -217,8 +228,8 @@ class MainViewModel(
         }
     }
 
-    fun login(email: String, password: String){
-        viewModelScope.launch(Dispatchers.Default){
+    fun login(email: String, password: String) {
+        viewModelScope.launch(Dispatchers.Default) {
             loginUseCase.execute(LoginParam(email, password)).first {
                 loginResult.postValue(it)
                 true
@@ -226,7 +237,7 @@ class MainViewModel(
         }
     }
 
-    fun signupEvent(event: Event, role: EventRole){
+    fun signupEvent(event: Event, role: EventRole) {
         viewModelScope.launch(Dispatchers.Default) {
             signupEventUseCase.execute(event.id, role.id).first {
                 signupResult.postValue(it)
@@ -235,7 +246,7 @@ class MainViewModel(
         }
     }
 
-    fun finishEvent(event: Event, eventParticipants: List<EventParticipant>){
+    fun finishEvent(event: Event, eventParticipants: List<EventParticipant>) {
         viewModelScope.launch(Dispatchers.Default) {
             finishEventUseCase.execute(event.id, eventParticipants).first {
                 finishEventResult.postValue(it)
@@ -244,42 +255,104 @@ class MainViewModel(
         }
     }
 
-    fun updateProductData(){
+    fun updateProductData() {
         viewModelScope.launch(Dispatchers.Default) {
             updateProductsDataUseCase.execute().first {
-                updateProductDataResult.postValue(it)
+                viewModelScope.launch(Dispatchers.Main) {
+                    if (it.products == null) {
+                        showToast("Ошибка при обновлении данных")
+                    }
+                }
                 true
             }
         }
     }
 
-    fun updateEventsData(){
+    fun updateEventsData() {
         viewModelScope.launch(Dispatchers.Default) {
             updateEventsDataUseCase.execute().first {
-                updateEventsDataResult.postValue(it)
+                viewModelScope.launch(Dispatchers.Main) {
+                    if (it.events == null) {
+                        showToast("Ошибка при обновлении данных")
+                    }
+                }
                 true
             }
         }
     }
 
-    fun addToBasket(product: Product){
+    fun updateOrdersData() {
+        viewModelScope.launch(Dispatchers.Default) {
+            updateOrdersDataUseCase.execute().first {
+                if (it.orders == null) {
+                    viewModelScope.launch(Dispatchers.Main) {
+                        showToast("Ошибка при обновлении данных")
+                    }
+                }
+                true
+            }
+        }
+    }
+
+    fun updateCurrencyTransactionsData() {
+        viewModelScope.launch(Dispatchers.Default) {
+            updateCurrencyTransactionDataUseCase.execute().first {
+                if (it.currencyTransactions == null) {
+                    viewModelScope.launch(Dispatchers.Main) {
+                        showToast("Ошибка при обновлении данных")
+                    }
+                }
+                true
+            }
+        }
+    }
+
+    fun updateUserData() {
+        viewModelScope.launch(Dispatchers.Default) {
+            updateUserDataUseCase.execute().first {
+                if (it.userInfo == null) {
+                    viewModelScope.launch(Dispatchers.Main) {
+                        showToast("Ошибка при обновлении данных")
+                    }
+                }
+                true
+            }
+        }
+    }
+
+    fun addToBasket(product: Product) {
         viewModelScope.launch(Dispatchers.Default) {
             createBasketItemUseCase.execute(product)
         }
     }
 
-    fun deleteFromBasket(basketItem: BasketItem){
+    fun deleteFromBasket(basketItem: BasketItem) {
         viewModelScope.launch(Dispatchers.Default) {
             deleteBasketItemUseCase.execute(basketItem.id)
         }
     }
 
-    fun createOrder(){
+    fun createOrder() {
         viewModelScope.launch(Dispatchers.Default) {
-            createOrderUseCase.execute().first{
+            createOrderUseCase.execute().first {
                 createOrderResult.postValue(it)
                 true
             }
+        }
+    }
+
+    fun cancelOrder(orderId: String) {
+        viewModelScope.launch(Dispatchers.Default) {
+            cancelOrderUseCase.execute(orderId).first {
+                cancelOrderResult.postValue(it)
+                true
+            }
+        }
+    }
+
+    fun logout() {
+        viewModelScope.launch(Dispatchers.Default) {
+            logoutUseCase.execute()
         }
     }
 }

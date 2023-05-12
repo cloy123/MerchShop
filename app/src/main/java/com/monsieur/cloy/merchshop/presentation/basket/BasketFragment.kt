@@ -6,10 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import com.monsieur.cloy.merchshop.R
 import com.monsieur.cloy.merchshop.databinding.FragmentBasketBinding
-import com.monsieur.cloy.merchshop.databinding.FragmentCatalogBinding
-import com.monsieur.cloy.merchshop.presentation.catalog.ProductRecyclerAdapter
 import com.monsieur.cloy.merchshop.presentation.viewModels.MainViewModel
 import com.monsieur.cloy.merchshop.utilits.backButton
 import com.monsieur.cloy.merchshop.utilits.calculatePrice

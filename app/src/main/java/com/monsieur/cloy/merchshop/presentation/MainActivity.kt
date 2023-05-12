@@ -78,10 +78,6 @@ class MainActivity : AppCompatActivity() {
                 backButton()
                 true
             }
-            R.id.action_mode -> {
-                //changeTheme()
-                true
-            }
             else -> super.onOptionsItemSelected(item)
         }
     }

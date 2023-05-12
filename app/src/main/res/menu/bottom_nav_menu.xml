@@ -7,7 +7,7 @@
     <item
         android:id="@+id/events"
         android:icon="@drawable/ic_round_emoji_events_24"
-        android:title="События" />
+        android:title="Мероприятия" />
     <item
         android:id="@+id/basket"
         android:icon="@drawable/ic_round_shopping_cart_24"

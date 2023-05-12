@@ -6,13 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import com.monsieur.cloy.merchshop.R
 import com.monsieur.cloy.merchshop.databinding.FragmentEventsBinding
-import com.monsieur.cloy.merchshop.presentation.catalog.ProductRecyclerAdapter
 import com.monsieur.cloy.merchshop.presentation.viewModels.MainViewModel
 import com.monsieur.cloy.merchshop.utilits.changeToolBar
 import com.monsieur.cloy.merchshop.utilits.replaceFragment
-import com.monsieur.cloy.merchshop.utilits.showToast
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class EventsFragment : Fragment() {
@@ -36,18 +33,12 @@ class EventsFragment : Fragment() {
     private fun initFunc() {
         initRecyclerAdapter()
 
-        viewModel.updateEventsDataResult.observe(requireActivity(), Observer {
-            if(it != null && it.events == null){
-                showToast("Ошибка при обновлении данных")
-            }
-        })
-
         viewModel.updateEventsData()
     }
 
     override fun onStart() {
         super.onStart()
-        changeToolBar(menu = false, homeButton = false, "События")
+        changeToolBar(menu = false, homeButton = false, "Мероприятия")
     }
 
     private fun initRecyclerAdapter(){

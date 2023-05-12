@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.monsieur.cloy.domain.models.EventResponsible
 import com.monsieur.cloy.domain.models.EventRole
 import com.monsieur.cloy.merchshop.R
 
