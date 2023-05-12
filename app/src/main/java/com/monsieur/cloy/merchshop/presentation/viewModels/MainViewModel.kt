@@ -50,6 +50,10 @@ class MainViewModel(
 
     val updateProductDataResult = MutableLiveData<UpdateProductDataResult?>()
 
+    val updateEventsDataResult = MutableLiveData<UpdateEventDataResult?>()
+
+    val createOrderResult = MutableLiveData<CreateOrderResult?>()
+
     var products = ArrayList<Product>()
 
     var types = MutableLiveData<ArrayList<String>>()
@@ -65,6 +69,8 @@ class MainViewModel(
     val eventResponsibles = MutableLiveData<List<EventResponsible>>()
 
     val eventParticipants = MutableLiveData<List<EventParticipant>>()
+
+    val basketItems = MutableLiveData<List<BasketItem>>()
 
     var filtersSettings: FiltersSettings =
         FiltersSettings(Sort.ByName, 0, 99999999, ArrayList(), ArrayList())
@@ -113,6 +119,11 @@ class MainViewModel(
         viewModelScope.launch(Dispatchers.Default) {
             getEventResponsibleUseCase.execute().collect{
                 eventResponsibles.postValue(it as ArrayList)
+            }
+        }
+        viewModelScope.launch(Dispatchers.Default) {
+            getBasketItemsUseCase.execute().collect{
+                basketItems.postValue(it as ArrayList)
             }
         }
     }
@@ -237,6 +248,36 @@ class MainViewModel(
         viewModelScope.launch(Dispatchers.Default) {
             updateProductsDataUseCase.execute().first {
                 updateProductDataResult.postValue(it)
+                true
+            }
+        }
+    }
+
+    fun updateEventsData(){
+        viewModelScope.launch(Dispatchers.Default) {
+            updateEventsDataUseCase.execute().first {
+                updateEventsDataResult.postValue(it)
+                true
+            }
+        }
+    }
+
+    fun addToBasket(product: Product){
+        viewModelScope.launch(Dispatchers.Default) {
+            createBasketItemUseCase.execute(product)
+        }
+    }
+
+    fun deleteFromBasket(basketItem: BasketItem){
+        viewModelScope.launch(Dispatchers.Default) {
+            deleteBasketItemUseCase.execute(basketItem.id)
+        }
+    }
+
+    fun createOrder(){
+        viewModelScope.launch(Dispatchers.Default) {
+            createOrderUseCase.execute().first{
+                createOrderResult.postValue(it)
                 true
             }
         }

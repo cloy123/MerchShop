@@ -12,6 +12,7 @@ import com.monsieur.cloy.merchshop.presentation.catalog.ProductRecyclerAdapter
 import com.monsieur.cloy.merchshop.presentation.viewModels.MainViewModel
 import com.monsieur.cloy.merchshop.utilits.changeToolBar
 import com.monsieur.cloy.merchshop.utilits.replaceFragment
+import com.monsieur.cloy.merchshop.utilits.showToast
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class EventsFragment : Fragment() {
@@ -34,6 +35,14 @@ class EventsFragment : Fragment() {
 
     private fun initFunc() {
         initRecyclerAdapter()
+
+        viewModel.updateEventsDataResult.observe(requireActivity(), Observer {
+            if(it != null && it.events == null){
+                showToast("Ошибка при обновлении данных")
+            }
+        })
+
+        viewModel.updateEventsData()
     }
 
     override fun onStart() {

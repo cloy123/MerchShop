@@ -12,6 +12,7 @@ import com.monsieur.cloy.merchshop.databinding.FragmentEventBinding
 import com.monsieur.cloy.merchshop.databinding.FragmentFinishEventBinding
 import com.monsieur.cloy.merchshop.presentation.viewModels.MainViewModel
 import com.monsieur.cloy.merchshop.utilits.backButton
+import com.monsieur.cloy.merchshop.utilits.changeToolBar
 import com.monsieur.cloy.merchshop.utilits.showToast
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
@@ -55,6 +56,11 @@ class FinishEventFragment(val event: Event) : Fragment() {
             val participant = it.filter { it.eventId == event.id } as ArrayList
             finishParticipantRecyclerAdapter.setItems(participant)
         })
+    }
+
+    override fun onStart() {
+        super.onStart()
+        changeToolBar(menu = false, homeButton = true, "")
     }
 
     fun initRecyclerParticipants(){

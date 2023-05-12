@@ -182,7 +182,9 @@ class CatalogFragment : Fragment() {
         viewModel.filteredProducts.observe(requireActivity(), Observer {
             recyclerAdapter.setItems(it)
         })
-
+        recyclerAdapter.setAddToBasketListener {
+            viewModel.addToBasket(it)
+        }
     }
 
 }
