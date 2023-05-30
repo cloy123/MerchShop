@@ -26,7 +26,7 @@ class MainViewModel(
     private val createBasketItemUseCase: CreateBasketItemUseCase,
     private val createOrderUseCase: CreateOrderUseCase,
     private val deleteBasketItemUseCase: DeleteBasketItemUseCase,
-    private val finishEventUseCase: FinishEventUseCase,
+    private val noteVisitUseCase: NoteVisitUseCase,
     private val getBasketItemsUseCase: GetBasketItemsUseCase,
     private val getCurrencyTransactionsUseCase: GetCurrencyTransactionsUseCase,
     private val getEventParticipantsUseCase: GetEventParticipantsUseCase,
@@ -82,12 +82,26 @@ class MainViewModel(
     var userData: User? = null
 
     val signupResult = MutableLiveData<SignupEventResult?>()
-    val finishEventResult = MutableLiveData<FinishEventResult?>()
+    val noteVisitResult = MutableLiveData<NoteVisitResult?>()
 
     init {
         viewModelScope.launch(Dispatchers.Default) {
             getProductsUseCase.execute().collect {
                 products = it as ArrayList
+                val newColorsStr = ArrayList<String>()
+                val newColors = ArrayList<Color>()
+                val newTypes = ArrayList<String>()
+                for(p in products){
+                    if(!newColorsStr.contains(p.colorName)){
+                        newColorsStr.add(p.colorName)
+                        newColors.add(Color(p.colorName, false))
+                    }
+                    if(!newTypes.contains(p.typeName)){
+                        newTypes.add(p.typeName)
+                    }
+                }
+                types.postValue(newTypes)
+                colors.postValue(newColors)
                 filteredProducts.postValue(filterProducts(products))
             }
         }
@@ -248,8 +262,8 @@ class MainViewModel(
 
     fun finishEvent(event: Event, eventParticipants: List<EventParticipant>) {
         viewModelScope.launch(Dispatchers.Default) {
-            finishEventUseCase.execute(event.id, eventParticipants).first {
-                finishEventResult.postValue(it)
+            noteVisitUseCase.execute(event.id, eventParticipants).first {
+                noteVisitResult.postValue(it)
                 true
             }
         }

@@ -33,14 +33,14 @@ class FinishEventFragment(val event: Event) : Fragment() {
 
     fun initFunc(){
 
-        viewModel.finishEventResult.observe(requireActivity(), Observer {
+        viewModel.noteVisitResult.observe(requireActivity(), Observer {
             if(it != null){
                 if(!it.isSuccessful){
                     showToast("Ошибка")
-                }else if(it.isFinished){
+                }else if(it.isNoted){
                     showToast("Участвующие отмечены")
                     backButton()
-                }else if(!it.isFinished){
+                }else if(!it.isNoted){
                     showToast(it.errorMessage)
                 }
             }

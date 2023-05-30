@@ -95,7 +95,8 @@ class OrderItemRecyclerAdapter  (val context: Context): RecyclerView.Adapter<Ord
                 .into(holder.image)
 
             holder.size.text = orderItem.product.sizeName
-            holder.productName.text = orderItem.product.typeName + " Цвет: " + orderItem.product.colorName
+            holder.productName.text = orderItem.product.typeName
+            holder.color.text = "Цвет: " + orderItem.product.colorName
             holder.price.text = orderItem.itemPrice.toString()
 
         }
@@ -114,5 +115,6 @@ class OrderItemRecyclerAdapter  (val context: Context): RecyclerView.Adapter<Ord
         var productName: TextView = itemView.findViewById(R.id.product_name)
         var size: TextView = itemView.findViewById(R.id.size)
         var price: TextView = itemView.findViewById(R.id.product_price)
+        var color: TextView = itemView.findViewById(R.id.product_color)
     }
 }

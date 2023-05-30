@@ -2,7 +2,7 @@ package com.monsieur.cloy.data.repository
 
 import com.monsieur.cloy.data.api.MerchShopApi
 import com.monsieur.cloy.data.api.models.FinishParticipantDto
-import com.monsieur.cloy.data.api.models.requests.FinishEventRequest
+import com.monsieur.cloy.data.api.models.requests.NoteVisitRequest
 import com.monsieur.cloy.data.api.models.requests.SignupEventRequest
 import com.monsieur.cloy.data.mappers.EventMapper
 import com.monsieur.cloy.data.mappers.EventParticipantMapper
@@ -10,7 +10,7 @@ import com.monsieur.cloy.data.mappers.EventResponsibleMapper
 import com.monsieur.cloy.data.mappers.EventRoleMapper
 import com.monsieur.cloy.data.storage.EventStorage
 import com.monsieur.cloy.domain.models.*
-import com.monsieur.cloy.domain.models.common.FinishEventResult
+import com.monsieur.cloy.domain.models.common.NoteVisitResult
 import com.monsieur.cloy.domain.models.common.SignupEventResult
 import com.monsieur.cloy.domain.models.common.UpdateEventDataResult
 import com.monsieur.cloy.domain.repository.EventRepository
@@ -69,32 +69,32 @@ class EventRepositoryImpl(private val eventStorage: EventStorage, private val me
         eventStorage.insertEvents(events.map { eventMapper.toDataModel(it) })
     }
 
-    override suspend fun finishEvent(
+    override suspend fun noteVisit(
         accessToken: String,
         eventId: String,
         participants: List<EventParticipant>
-    ): FinishEventResult {
+    ): NoteVisitResult {
         var isSuccessful: Boolean
         var code: Int
 
-        var isFinished = false
+        var isNoted = false
         var errorMessage = ""
 
-        val request = FinishEventRequest(eventId, participants.map { FinishParticipantDto(it.id, it.isVisit) })
+        val request = NoteVisitRequest(eventId, participants.map { FinishParticipantDto(it.id, it.isVisit) })
 
         try {
-            val response = merchShopApi.finishEvent(accessToken, request)
+            val response = merchShopApi.noteVisit(accessToken, request)
             isSuccessful = response.isSuccessful
             code = response.code()
             if (response.isSuccessful && response.body() != null) {
-                isFinished = response.body()!!.isFinished
+                isNoted = response.body()!!.isNoted
                 errorMessage = response.body()!!.errorMessage
             }
         } catch (e: Exception) {
             code = -1
             isSuccessful = false
         }
-        return FinishEventResult(isSuccessful, isFinished, errorMessage, code)
+        return NoteVisitResult(isSuccessful, isNoted, errorMessage, code)
     }
 
     override suspend fun signupEvent(

@@ -97,9 +97,9 @@ class MerchShopApi {
         return response.execute()
     }
 
-    fun finishEvent(token: String, finishEventRequest: FinishEventRequest): Response<FinishEventResponse>{
+    fun noteVisit(token: String, noteVisitRequest: NoteVisitRequest): Response<NoteVisitResponse>{
         val merchShopApiRequests = retrofit.create(MerchShopApiRequests::class.java)
-        val response = merchShopApiRequests.finishEvent("Bearer $token", finishEventRequest)
+        val response = merchShopApiRequests.noteVisit("Bearer $token", noteVisitRequest)
         return response.execute()
     }
 

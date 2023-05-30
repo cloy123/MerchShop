@@ -12,17 +12,17 @@ class GetCatalogInfoResponse(
     @Expose
     var products: List<ProductDto>,
 
-    @SerializedName("productSizes")
-    @Expose
-    var productSizes: List<ProductSizeDto>,
-
-    @SerializedName("productColors")
-    @Expose
-    var productColors: List<ProductColorDto>,
-
-    @SerializedName("productTypes")
-    @Expose
-    var productTypes: List<ProductTypeDto>
+//    @SerializedName("productSizes")
+//    @Expose
+//    var productSizes: List<ProductSizeDto>,
+//
+//    @SerializedName("productColors")
+//    @Expose
+//    var productColors: List<ProductColorDto>,
+//
+//    @SerializedName("productTypes")
+//    @Expose
+//    var productTypes: List<ProductTypeDto>
 
 ) {
 }

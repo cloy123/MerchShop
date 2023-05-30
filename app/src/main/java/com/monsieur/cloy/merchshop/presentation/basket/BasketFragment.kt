@@ -47,7 +47,6 @@ class BasketFragment : Fragment() {
                         showToast("Ошибка")
                     }else if(it.isCreated){
                         showToast("Заказ создан")
-                        backButton()
                     }else if(!it.isCreated){
                         showToast(it.errorMessage)
                     }

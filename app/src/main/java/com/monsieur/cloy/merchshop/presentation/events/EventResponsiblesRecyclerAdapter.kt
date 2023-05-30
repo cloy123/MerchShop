@@ -31,7 +31,11 @@ class EventResponsiblesRecyclerAdapter  (val context: Context): RecyclerView.Ada
         if(responsibles != null && responsibles!!.isNotEmpty()){
             val responsible = responsibles!![position]
 
-            holder.responsibleName.text = responsible.firstName + " " + responsible.lastName + " " + responsible.className
+            var responsibleName = responsible.firstName + " " + responsible.lastName
+            if(responsible.className != null){
+                responsibleName = responsibleName + " " + responsible.className
+            }
+            holder.responsibleName.text = responsibleName
         }
     }
 

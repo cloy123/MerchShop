@@ -17,5 +17,4 @@ class LoginUseCase(private val userRepository: UserRepository) {
             emit(result)
         }
     }
-
 }

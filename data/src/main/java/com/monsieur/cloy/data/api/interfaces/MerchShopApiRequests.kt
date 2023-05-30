@@ -37,8 +37,8 @@ interface MerchShopApiRequests {
     @POST("orders/cancelOrder")
     fun cancelOrder(@Header("Authorization") authorization: String, @Body cancelOrderRequest: CancelOrderRequest): Call<CancelOrderResponse>
 
-    @POST("events/finishEvent")
-    fun finishEvent(@Header("Authorization") authorization: String, @Body finishEventRequest: FinishEventRequest): Call<FinishEventResponse>
+    @POST("events/noteEventVisit")
+    fun noteVisit(@Header("Authorization") authorization: String, @Body noteVisitRequest: NoteVisitRequest): Call<NoteVisitResponse>
 
     @POST("events/signupEvent")
     fun signupEvent(@Header("Authorization") authorization: String, @Body signupEventRequest: SignupEventRequest): Call<SignupEventResponse>

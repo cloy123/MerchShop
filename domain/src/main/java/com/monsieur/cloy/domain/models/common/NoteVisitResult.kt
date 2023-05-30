@@ -1,8 +1,8 @@
 package com.monsieur.cloy.domain.models.common
 
-class FinishEventResult(
+class NoteVisitResult(
     var isSuccessful: Boolean,
-    var isFinished: Boolean,
+    var isNoted: Boolean,
     var errorMessage: String,
     var code: Int
 ) {

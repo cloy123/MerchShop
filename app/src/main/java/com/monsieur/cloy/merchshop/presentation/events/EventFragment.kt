@@ -11,10 +11,7 @@ import com.monsieur.cloy.domain.models.Event
 import com.monsieur.cloy.domain.models.EventRole
 import com.monsieur.cloy.merchshop.databinding.FragmentEventBinding
 import com.monsieur.cloy.merchshop.presentation.viewModels.MainViewModel
-import com.monsieur.cloy.merchshop.utilits.backButton
-import com.monsieur.cloy.merchshop.utilits.changeToolBar
-import com.monsieur.cloy.merchshop.utilits.replaceFragment
-import com.monsieur.cloy.merchshop.utilits.showToast
+import com.monsieur.cloy.merchshop.utilits.*
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class EventFragment(val event: Event) : Fragment() {
@@ -37,9 +34,14 @@ class EventFragment(val event: Event) : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentEventBinding.inflate(inflater, container, false)
-        initFunc()
         return binding.root
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        initFunc()
+        super.onViewCreated(view, savedInstanceState)
+    }
+
 
     private fun initFunc() {
         if(event.isCompleted){
@@ -49,6 +51,14 @@ class EventFragment(val event: Event) : Fragment() {
             binding.btFinish.visibility = View.VISIBLE
             binding.linearSignup.visibility = View.VISIBLE
         }
+
+        binding.eventDate.text = event.date.toLocalDate().toString()
+        binding.eventStatus.text = if(event.isCompleted){
+            "Завершено"
+        }else{
+            "Активно"
+        }
+        binding.eventDescription.text = event.description
 
         initRecyclerParticipants()
         initRecyclerResponsibles()
@@ -67,19 +77,20 @@ class EventFragment(val event: Event) : Fragment() {
                 rolesStr.add(role.name)
             }
             val adapter: ArrayAdapter<String> = ArrayAdapter<String>(
-                requireContext(),
+                APP_ACTIVITY,
                 android.R.layout.simple_spinner_item, rolesStr
             )
+
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             binding.spinnerRoles.adapter = adapter
         })
-        viewModel.eventResponsibles.observe(requireActivity(), Observer {
+        viewModel.eventResponsibles.observe(requireActivity(), Observer { it ->
             val responsibles = it.filter { it.eventId == event.id } as ArrayList
             if(viewModel.userData != null){
-                if(responsibles.find { it.userId == viewModel.userData!!.id } != null){
-                    binding.btFinish.visibility = View.VISIBLE
-                }else{
+                if(responsibles.none { r -> r.userId == viewModel.userData!!.id }){
                     binding.btFinish.visibility = View.GONE
+                }else{
+                    binding.btFinish.visibility = View.VISIBLE
                 }
             }else{
                 binding.btFinish.visibility = View.GONE
@@ -92,7 +103,7 @@ class EventFragment(val event: Event) : Fragment() {
                 if(participants.find { it.userId == viewModel.userData!!.id } != null){
                     binding.btSignup.visibility = View.GONE
                 }else{
-                    binding.btFinish.visibility = View.VISIBLE
+                    binding.btSignup.visibility = View.VISIBLE
                 }
             }else{
                 binding.btSignup.visibility = View.GONE

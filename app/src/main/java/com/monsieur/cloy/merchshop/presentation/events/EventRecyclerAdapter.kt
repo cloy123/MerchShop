@@ -38,11 +38,13 @@ class EventRecyclerAdapter  (val context: Context): RecyclerView.Adapter<EventRe
         if(events != null && events!!.isNotEmpty()){
             val event = events!![position]
 
-            holder.eventName.text = event.name + if(event.isCompleted){
-                " (Завершено)"
+            holder.status.text = if(event.isCompleted){
+                "Завершено"
             }else{
-                ""
+                "Активно"
             }
+
+            holder.eventName.text = event.name
 
             holder.date.text = event.date.toLocalDate().toString()
 
@@ -62,6 +64,7 @@ class EventRecyclerAdapter  (val context: Context): RecyclerView.Adapter<EventRe
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var eventName: TextView = itemView.findViewById(R.id.event_name)
+        var status: TextView = itemView.findViewById(R.id.status)
         var date: TextView = itemView.findViewById(R.id.date)
         var card: CardView = itemView.findViewById(R.id.card)
     }

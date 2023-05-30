@@ -4,6 +4,7 @@ import android.widget.Toast
 import androidx.core.view.children
 import androidx.fragment.app.Fragment
 import com.monsieur.cloy.merchshop.R
+import com.monsieur.cloy.merchshop.presentation.events.EventsFragment
 import okhttp3.OkHttpClient
 import java.security.SecureRandom
 import java.security.cert.CertificateException
@@ -59,8 +60,12 @@ private fun deleteHomeButton(){
     actionBar?.setDisplayHomeAsUpEnabled(false)
 }
 
-fun backButton(){
-    APP_ACTIVITY.onBackPressedDispatcher.onBackPressed()
+fun backButton(fragment: Fragment? = EventsFragment()){
+    if(fragment == null){
+        APP_ACTIVITY.onBackPressedDispatcher.onBackPressed()
+    }else{
+        replaceFragment(fragment, false)
+    }
     //APP_ACTIVITY.onBackPressed()
 }
 

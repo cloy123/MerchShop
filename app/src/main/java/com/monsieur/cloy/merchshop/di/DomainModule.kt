@@ -28,8 +28,8 @@ val domainModule = module {
     factory<DeleteBasketItemUseCase>{
         DeleteBasketItemUseCase(basketItemRepository = get())
     }
-    factory<FinishEventUseCase>{
-        FinishEventUseCase(userRepository = get(), eventRepository = get())
+    factory<NoteVisitUseCase>{
+        NoteVisitUseCase(userRepository = get(), eventRepository = get())
     }
     factory<GetBasketItemsUseCase>{
         GetBasketItemsUseCase(basketItemRepository = get())
